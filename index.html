@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Kármán Line: daily trivia for engineers. Rare answers, slider estimates and point-on-the-diagram rounds across aerospace, mechanical, civil, electrical and chemical engineering.">
+<meta name="description" content="SigmaSix: daily trivia for engineers. Rare answers, slider estimates and point-on-the-diagram rounds across aerospace, mechanical, civil, electrical and chemical engineering.">
 <meta name="theme-color" content="#0f1b31">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f1b31'/%3E%3Cpath d='M16 5l7 16-7-3.5L9 21z' fill='%23eef3fb'/%3E%3Cpath d='M12.5 22l3.5 6 3.5-6' fill='%23ff7a45'/%3E%3C/svg%3E">
-<title>Kármán Line Trivia</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f1b31'/%3E%3Cpath d='M4 24h24' stroke='%232a3b58' stroke-width='2'/%3E%3Cpath d='M4 23c6 0 8-15 12-15s6 15 12 15' fill='none' stroke='%23eef3fb' stroke-width='2.5' stroke-linecap='round'/%3E%3Ccircle cx='24.500' cy='21.500' r='3' fill='%23ff7a45'/%3E%3C/svg%3E">
+<title>SigmaSix Trivia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Condensed:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: one night sky that darkens to space as you climb. Altimeter with real landmarks on the left, the working card on the right. Single dark theme by choice. */
+/* Layout idea: a bell curve across the top with a marker that moves out along the right tail as you score, the working card below. Single dark theme by choice. */
 :root{
   --bg:#04060d; --surface:#0f1b31; --ink:#eef3fb; --muted:#9db0c8; --line:#2a3b58;
   --accent:#ff7a45; --on-accent:#1c0c04;
-  --t0:#8fc7ea; --t1:#7fa6ff; --t2:#b9a8ff; --t3:#ffd166; --t4:#ff7a45;
+  --t0:#8fc7ea; --t1:#7fa6ff; --t2:#b9a8ff; --t3:#ffd166; --t4:#ff9a4d; --t5:#ff5d8f;
   --display:"Saira Condensed","Arial Narrow",Arial,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -25,8 +25,7 @@
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;min-height:100vh}
-.sky{position:fixed;inset:0;z-index:0;background:linear-gradient(to top,#3a74b0 0%,#1d4479 30%,#0f2748 65%,#081428 100%);opacity:calc(1 - var(--alt,0)*.92);transition:opacity 1s}
-#stars{position:fixed;inset:0;z-index:0;width:100%;height:100%;opacity:calc(.1 + var(--alt,0)*.9);transition:opacity 1s}
+.sky{position:fixed;inset:0;z-index:0;background:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px) 0 0/32px 32px,linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px) 0 0/32px 32px,radial-gradient(ellipse 120% 80% at 50% -10%,#16345f 0%,#0a1730 50%,#04060d 100%)}
 .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:22px 20px 36px;display:flex;flex-direction:column;gap:20px}
 header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px}
 h1{font-family:var(--display);font-weight:800;font-size:clamp(36px,6vw,52px);line-height:.9;letter-spacing:.02em;text-transform:uppercase;margin:0}
@@ -35,22 +34,22 @@ h1 span{color:var(--accent)}
 .modes{display:flex;background:rgba(255,255,255,.07);border-radius:999px;padding:4px;gap:2px}
 .modes button{font:600 14px var(--body);padding:8px 18px;background:transparent;color:var(--muted);border:0;border-radius:999px;cursor:pointer}
 .modes button[aria-pressed="true"]{background:var(--ink);color:#0b1526}
-main{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
-/* altimeter */
-.alt{position:sticky;top:16px;display:flex;flex-direction:column;gap:14px}
-.alt-head{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.alt-num{font-family:var(--display);font-weight:800;font-size:46px;line-height:.9;font-variant-numeric:tabular-nums}
-.alt-num small{font:500 14px var(--mono);color:var(--muted);margin-left:5px}
-.scale{position:relative;height:440px;margin:8px 0 6px}
-.track{position:absolute;left:0;top:0;bottom:0;width:14px;border-radius:7px;background:rgba(255,255,255,.1);overflow:hidden}
-.fill{position:absolute;left:0;right:0;bottom:0;height:calc(var(--alt,0)*100%);background:linear-gradient(to top,var(--t0),var(--t1) 35%,var(--t2) 60%,var(--t3) 85%,var(--t4));transition:height .9s cubic-bezier(.2,.8,.2,1)}
-.craft{position:absolute;left:-6px;bottom:calc(var(--alt,0)*100%);width:26px;height:26px;transform:translateY(50%);transition:bottom .9s cubic-bezier(.2,.8,.2,1);color:var(--ink);filter:drop-shadow(0 0 6px rgba(255,122,69,.8))}
-.lm{position:absolute;left:30px;transform:translateY(50%);display:flex;align-items:center;gap:8px;font:500 12px var(--mono);color:var(--muted);white-space:nowrap;opacity:.55;transition:opacity .5s,color .5s}
-.lm::before{content:"";width:10px;border-top:1.5px solid currentColor}
-.lm b{font-weight:600;font-variant-numeric:tabular-nums}
-.lm.lit{opacity:1;color:var(--ink)}
-.lm.goal{color:var(--accent);opacity:1}
-.hbar{display:none}
+main{display:flex;flex-direction:column;gap:18px}
+/* bell curve */
+.bell{display:flex;align-items:center;gap:26px;background:rgba(15,27,49,.75);border:1px solid var(--line);border-radius:14px;padding:16px 24px 14px}
+.alt-head{font:600 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.alt-num{font-family:var(--display);font-weight:800;font-size:46px;line-height:.9;font-variant-numeric:tabular-nums;min-width:3.4ch;margin-top:6px}
+.alt-num small{font:500 22px var(--display);color:var(--muted);margin-left:3px}
+.curve{position:relative;flex:1;min-width:0;height:92px;margin-bottom:22px}
+.curve svg{display:block;width:100%;height:100%;overflow:visible}
+.curve .area-bg{fill:rgba(255,255,255,.07)}
+.curve .outline{fill:none;stroke:var(--muted);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.curve .grid{stroke:rgba(255,255,255,.14);stroke-width:1;vector-effect:non-scaling-stroke}
+.mark{position:absolute;top:0;bottom:0;left:33.333%;width:0;border-left:1.5px dashed var(--ink);opacity:.9}
+.mark i{position:absolute;left:-7.5px;top:0;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--accent);border:3px solid var(--ink);box-shadow:0 0 10px rgba(255,122,69,.8)}
+.tk{position:absolute;top:100%;margin-top:6px;transform:translateX(-50%);font:500 12px var(--mono);color:var(--muted);opacity:.55;white-space:nowrap;transition:opacity .5s,color .5s}
+.tk.lit{opacity:1;color:var(--ink)}
+.tk.goal{color:var(--accent);opacity:1;font-weight:600}
 /* card */
 .card{background:rgba(15,27,49,.93);border:1px solid var(--line);border-radius:14px;padding:26px;min-height:520px;display:flex;flex-direction:column;gap:18px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
 .hud{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px;font:500 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
@@ -58,7 +57,7 @@ main{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:start}
 .pips{display:flex;gap:5px}
 .pip{width:26px;height:8px;border-radius:4px;background:rgba(255,255,255,.12)}
 .pip.now{background:var(--ink)}
-.pip.p0{background:var(--t0)}.pip.p1{background:var(--t1)}.pip.p2{background:var(--t2)}.pip.p3{background:var(--t3)}.pip.p4{background:var(--t4)}
+.pip.p0{background:var(--t0)}.pip.p1{background:var(--t1)}.pip.p2{background:var(--t2)}.pip.p3{background:var(--t3)}.pip.p4{background:var(--t4)}.pip.p5{background:var(--t5)}
 .pip.px{background:repeating-linear-gradient(45deg,var(--muted) 0 2px,transparent 2px 5px)}
 .cat{font:600 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,44px);line-height:1.02;margin:6px 0 0;text-wrap:balance}
@@ -82,7 +81,8 @@ button:focus-visible,.modes button:focus-visible{outline:3px solid var(--accent)
 .msg{min-height:1.5em;color:var(--accent);font-weight:500}
 .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .chip{display:inline-block;font:600 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border:1.5px solid currentColor;border-radius:999px}
-.c0{color:var(--t0)}.c1{color:var(--t1)}.c2{color:var(--t2)}.c3{color:var(--t3)}.c4{color:var(--t4)}.cx{color:var(--muted)}
+.c0{color:var(--t0)}.c1{color:var(--t1)}.c2{color:var(--t2)}.c3{color:var(--t3)}.c4{color:var(--t4)}.c5{color:var(--t5)}.cx{color:var(--muted)}
+.sg,.stamp small .sg{font:inherit;letter-spacing:inherit;text-transform:none}
 .big{font-family:var(--display);font-weight:800;font-size:76px;line-height:.85;font-variant-numeric:tabular-nums}
 .big small{font:500 15px var(--mono);color:var(--muted);margin-left:6px}
 .ex{color:var(--muted);max-width:62ch}
@@ -95,7 +95,7 @@ button:focus-visible,.modes button:focus-visible{outline:3px solid var(--accent)
 .kind span{color:var(--muted);font-size:14px;line-height:1.35}
 .ladder{display:flex;flex-direction:column;gap:6px}
 .rung{display:grid;grid-template-columns:64px 1fr auto;gap:4px 14px;align-items:center;padding:9px 14px;border-radius:10px;background:rgba(255,255,255,.04);border-left:4px solid currentColor}
-.rung .pt{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.rung .pt{font-family:var(--display);font-weight:800;font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
 .rung .nm{font-family:var(--display);font-weight:700;font-size:21px;line-height:1.05;text-transform:uppercase;letter-spacing:.02em}
 .rung .gag{color:var(--muted);font-size:13px}
 .rung .how{color:var(--muted);font-size:13px;text-align:right;max-width:22ch}
@@ -146,12 +146,11 @@ td .chip{white-space:nowrap}
 textarea{width:100%;font:13px var(--mono);padding:8px;border:1px solid var(--line);background:#0a1425;color:var(--ink);border-radius:8px}
 footer{color:var(--muted);font-size:12px;max-width:74ch;opacity:.8}
 @media (max-width:720px){
-  main{grid-template-columns:1fr;gap:12px}
-  .alt{position:static;flex-direction:row;align-items:center;gap:12px}
-  .alt-head{display:none}.alt-num{font-size:30px;min-width:4.6ch}
-  .scale{display:none}
-  .hbar{display:block;flex:1;position:relative;height:12px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden}
-  .hbar div{position:absolute;left:0;top:0;bottom:0;width:calc(var(--alt,0)*100%);background:linear-gradient(to right,var(--t0),var(--t1) 35%,var(--t2) 60%,var(--t3) 85%,var(--t4));border-radius:6px;transition:width .9s}
+  main{gap:12px}
+  .bell{gap:14px;padding:12px 14px 10px;border-radius:12px}
+  .alt-head{display:none}.alt-num{font-size:32px;min-width:3.2ch;margin-top:0}.alt-num small{font-size:17px}
+  .curve{height:60px;margin-bottom:20px}
+  .tk{font-size:11px}
   .card{padding:18px;min-height:0;border-radius:12px}
   .kinds{grid-template-columns:1fr}
   .kind{flex-direction:row;align-items:center;gap:12px}.kind svg{flex:none}
@@ -162,18 +161,18 @@ footer{color:var(--muted);font-size:12px;max-width:74ch;opacity:.8}
   .slide{flex-wrap:wrap}.slide input{order:-1;flex-basis:100%}
   .slide .step{flex:1;border-radius:10px;height:44px}
   td.q{display:none}th.q{display:none}
+  td .chip{white-space:normal;border-radius:10px}
 }
-@media (prefers-reduced-motion:reduce){.fill,.craft,.hbar div,.sky,#stars{transition:none}.stamp{animation:none}}
+@media (prefers-reduced-motion:reduce){.tk{transition:none}.stamp{animation:none}}
 </style>
 </head>
 <body>
 <div class="sky" aria-hidden="true"></div>
-<canvas id="stars" aria-hidden="true"></canvas>
 <div class="wrap">
   <header>
     <div>
-      <h1>Kármán <span>Line</span></h1>
-      <p class="tag">Trivia for engineers. Climb to the edge of space.</p>
+      <h1>Sigma<span>Six</span></h1>
+      <p class="tag">Trivia for engineers. Get six sigma from the mean.</p>
     </div>
     <div class="modes" role="group" aria-label="Game mode">
       <button type="button" id="mode-daily" aria-pressed="true">Daily</button>
@@ -181,13 +180,23 @@ footer{color:var(--muted);font-size:12px;max-width:74ch;opacity:.8}
     </div>
   </header>
   <main id="main">
-    <aside class="alt" aria-label="Altitude">
-      <div><div class="alt-head">Altitude</div><div class="alt-num"><span id="alt-label">0.0</span><small>km</small></div></div>
-      <div class="scale" id="scale" aria-hidden="true">
-        <div class="track"><div class="fill"></div></div>
-        <svg class="craft" viewBox="0 0 26 26"><path d="M13 2 L19 16 L13 13 L7 16 Z" fill="currentColor"/><path d="M10 17 L13 24 L16 17" fill="#ff7a45"/></svg>
+    <aside class="bell" aria-label="Sigma level">
+      <div><div class="alt-head">Sigma level</div><div class="alt-num"><span id="sig-label">0.0</span><small>σ</small></div></div>
+      <div class="curve" id="curve" aria-hidden="true">
+        <svg viewBox="0 0 900 100" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="bell-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="900" y2="0">
+              <stop offset="0" stop-color="#5f86b3"/><stop offset=".333" stop-color="#8fc7ea"/><stop offset=".47" stop-color="#7fa6ff"/><stop offset=".6" stop-color="#b9a8ff"/><stop offset=".72" stop-color="#ffd166"/><stop offset=".86" stop-color="#ff9a4d"/><stop offset="1" stop-color="#ff5d8f"/>
+            </linearGradient>
+            <clipPath id="bell-clip"><rect id="bell-rect" x="0" y="-5" width="300" height="110"/></clipPath>
+          </defs>
+          <g id="bell-grid"></g>
+          <path class="area-bg" id="bell-bg"/>
+          <path id="bell-fill" fill="url(#bell-grad)" clip-path="url(#bell-clip)"/>
+          <path class="outline" id="bell-line"/>
+        </svg>
+        <div class="mark" id="mark"><i></i></div>
       </div>
-      <div class="hbar" aria-hidden="true"><div></div></div>
     </aside>
     <section class="card" id="card" aria-live="polite"></section>
   </main>
@@ -195,177 +204,208 @@ footer{color:var(--muted);font-size:12px;max-width:74ch;opacity:.8}
 </div>
 
 <script id="core">
+/* Six ranks, one per sigma. TIERS[i] is the rank for (i+1)σ. */
 var TIERS=[
 {p:10,n:"Year 9 Science Fair",g:"Baking-soda volcano energy"},
 {p:30,n:"Sleep-Deprived First-Year",g:"Skimmed the lecture slides once"},
-{p:60,n:"Grad in Fresh Hi-Vis",g:"Knows where the standards are kept"},
-{p:85,n:"Chartered Engineer",g:"Stamps drawings and means it"},
-{p:100,n:"Chief Engineer",g:"Wrote the textbook, then corrected it"}];
+{p:55,n:"Grad in Fresh Hi-Vis",g:"Knows where the standards are kept"},
+{p:75,n:"Chartered Engineer",g:"Stamps drawings and means it"},
+{p:90,n:"Chief Engineer",g:"Wrote the textbook, then corrected it"},
+{p:100,n:"Six Sigma Black Belt",g:"3.4 defects per million answers"}];
+/* Sigma level for a score out of 700: scoring rank n in every round lands exactly on nσ. */
+function sigmaOf(score){var a=score/7,lo=0;for(var i=0;i<TIERS.length;i++){var hi=TIERS[i].p;if(a<hi)return i+(a-lo)/(hi-lo);lo=hi;}return TIERS.length;}
 var NO_RANK="Sent for a Long Weight";
-/* Each prompt: c category, q question, s words ignored when matching, a answers by tier (common to rare). "Display|alias|alias". */
+/* Each prompt: c category, q question, s words ignored when matching, a answers by tier, 1σ to 6σ (common to rare). "Display|alias|alias". */
 var PROMPTS=[
 {c:"Fluids and heat transfer",q:"Name a dimensionless number used in fluid mechanics or heat transfer",s:"number",a:[
 ["Reynolds|Re","Mach|Ma"],
 ["Prandtl|Pr","Nusselt|Nu","Froude|Fr"],
 ["Weber|We","Strouhal|St","Grashof|Gr","Rayleigh|Ra","Biot|Bi","Knudsen|Kn","Péclet|Pe"],
 ["Schmidt|Sc","Stanton","Sherwood|Sh","Fourier|Fo","Eckert|Ec","Lewis|Le","Euler|Eu","Womersley","Bond|Eötvös|Eo|Bo","Capillary|Ca","Dean","Richardson|Ri","Stokes|Stk","Damköhler|Da"],
-["Ohnesorge|Oh","Marangoni","Galilei|Galileo","Archimedes|Ar","Deborah|De","Weissenberg|Wi","Graetz|Gz","Rossby|Ro","Laplace|La|Suratman","Jakob|Ja","Bejan|Be"]]},
+["Ohnesorge|Oh","Marangoni","Archimedes|Ar","Deborah|De","Weissenberg|Wi","Graetz|Gz","Rossby|Ro","Jakob|Ja"],
+["Galilei|Galileo","Laplace|La|Suratman","Bejan|Be"]]},
 {c:"Propulsion",q:"Name a type of aircraft or rocket engine",s:"engine motor thruster",a:[
 ["Turbofan","Turbojet","Piston|reciprocating","Jet|gas turbine","Rocket"],
 ["Turboprop","Ramjet","Liquid rocket|liquid propellant rocket|liquid fuel rocket|liquid","Solid rocket|solid propellant rocket|solid fuel rocket|solid|SRB"],
 ["Scramjet","Turboshaft","Radial","Hybrid rocket|hybrid","Ion|ion drive|gridded ion","Rotary|Wankel","Electric"],
 ["Pulsejet","Propfan|open rotor|unducted fan","Hall-effect|Hall","Aerospike","Nuclear thermal rocket|nuclear thermal|NTR","Motorjet","Geared turbofan","Afterburning turbofan","Inline","Flat|boxer|horizontally opposed"],
-["Rotating detonation|RDE","Pulse detonation|PDE","Air turborocket|turborocket","Resistojet","Arcjet","Precooled|SABRE","Magnetoplasmadynamic|MPD","Turbo-compound|turbocompound","Turboramjet","Colloid|electrospray","VASIMR"]]},
+["Rotating detonation|RDE","Pulse detonation|PDE","Resistojet","Arcjet","Precooled|SABRE","Turbo-compound|turbocompound","Turboramjet","VASIMR"],
+["Air turborocket|turborocket","Magnetoplasmadynamic|MPD","Colloid|electrospray"]]},
 {c:"Materials and inspection",q:"Name a non-destructive testing method",s:"testing test inspection method",a:[
 ["Ultrasonic|ultrasound|UT","Radiographic|X-ray|radiography|xray|RT","Visual|VT"],
 ["Dye penetrant|liquid penetrant|penetrant|PT|dye","Magnetic particle|MPI|MT"],
 ["Eddy current|ET","Thermography|infrared thermography|thermal imaging|infrared","Acoustic emission|AE"],
 ["Tap|coin tap","Leak|helium leak|pressure","Computed tomography|CT|CT scan","Phased array ultrasonic|phased array|PAUT","Shearography","Magnetic flux leakage|MFL","Hardness","Borescope|endoscope"],
-["Time-of-flight diffraction|TOFD","Barkhausen noise|Barkhausen","Alternating current field measurement|ACFM","Guided wave","Neutron radiography|neutron imaging","Holographic interferometry|holography","Remote field|RFT","Laser ultrasonic","Terahertz"]]},
+["Time-of-flight diffraction|TOFD","Guided wave","Neutron radiography|neutron imaging","Holographic interferometry|holography","Laser ultrasonic","Terahertz"],
+["Barkhausen noise|Barkhausen","Alternating current field measurement|ACFM","Remote field|RFT"]]},
 {c:"Structures and materials",q:"Name a failure mode of a material or structure",s:"failure",a:[
 ["Fatigue","Fracture|cracking|crack","Corrosion|rust"],
 ["Buckling","Creep","Yielding|yield|plastic deformation","Wear|abrasion"],
 ["Brittle fracture","Stress corrosion cracking|SCC|stress corrosion","Delamination","Hydrogen embrittlement","Thermal shock","Erosion","Ductile fracture|necking","Shear|shear out"],
 ["Fretting","Galling","Spalling","Pitting","Cavitation","Crippling","Ratcheting","Stress rupture|creep rupture","Flutter","Thermal fatigue","Impact","Galvanic corrosion","Bearing|bearing failure","Tear out|tearout","Debonding|disbond"],
-["Brinelling","Liquid metal embrittlement","Lamellar tearing","Intergranular corrosion","Crevice corrosion","Exfoliation corrosion|exfoliation","Fibre kinking|fiber kinking|microbuckling|kink band","Dezincification","Caustic embrittlement","Corrosion fatigue","Scuffing","Divergence","Snap-through|snap through"]]},
+["Brinelling","Liquid metal embrittlement","Intergranular corrosion","Crevice corrosion","Exfoliation corrosion|exfoliation","Fibre kinking|fiber kinking|microbuckling|kink band","Corrosion fatigue","Scuffing","Snap-through|snap through"],
+["Lamellar tearing","Dezincification","Caustic embrittlement","Divergence"]]},
 {c:"Manufacturing",q:"Name a welding or joining process",s:"welding weld joining",a:[
 ["MIG|GMAW|gas metal arc|MAG","TIG|GTAW|gas tungsten arc","Arc|stick|SMAW|shielded metal arc|MMA","Soldering|solder"],
 ["Spot|resistance spot|resistance","Brazing|braze","Riveting|rivet","Bolting|bolt|bolted","Adhesive bonding|adhesive|glue|gluing|bonding"],
 ["Laser beam|laser","Friction stir|FSW","Electron beam|EBW","Oxy-fuel|oxyacetylene|gas|oxy acetylene|oxy","Submerged arc|SAW","Flux-cored|FCAW|flux cored arc"],
 ["Plasma arc|plasma","Ultrasonic","Seam|resistance seam","Friction|linear friction|inertia|rotary friction","Thermite|exothermic","Diffusion bonding|diffusion","Stud","Forge","Press fit|interference fit|shrink fit","Crimping|crimp"],
-["Explosion|explosive","Electroslag","Magnetic pulse","Cold|cold pressure","Electrogas","Atomic hydrogen","Clinching|clinch","Flash butt|flash","Projection","Upset","Self-piercing riveting|SPR","Induction"]]},
+["Explosion|explosive","Electroslag","Cold|cold pressure","Clinching|clinch","Flash butt|flash","Projection","Upset","Self-piercing riveting|SPR","Induction"],
+["Magnetic pulse","Electrogas","Atomic hydrogen"]]},
 {c:"Thermodynamics",q:"Name a thermodynamic cycle",s:"cycle",a:[
 ["Carnot","Otto","Diesel"],
 ["Rankine","Brayton|Joule|Brayton-Joule"],
 ["Stirling","Vapour compression|vapor compression|refrigeration|vapour compression refrigeration","Combined|combined gas and steam|CCGT","Atkinson"],
 ["Ericsson","Miller","Dual|Sabathé|Seiliger|mixed|limited pressure","Kalina","Organic Rankine|ORC","Humphrey","Lenoir","Absorption refrigeration|absorption","Reverse Brayton|Bell Coleman|air refrigeration"],
-["Vuilleumier","Siemens","Linde-Hampson|Linde|Hampson-Linde","Claude","Gifford-McMahon|GM","Allam|Allam-Fetvedt","Cheng","Stoddard","Regenerative Rankine","Reverse Carnot","Scuderi","Kleemenko"]]},
+["Siemens","Linde-Hampson|Linde|Hampson-Linde","Claude","Gifford-McMahon|GM","Allam|Allam-Fetvedt","Cheng","Regenerative Rankine","Reverse Carnot"],
+["Vuilleumier","Stoddard","Scuderi","Kleemenko"]]},
 {c:"Civil",q:"Name a type of bridge",s:"bridge",a:[
 ["Suspension","Arch","Beam|girder"],
 ["Truss","Cable-stayed|cable stay","Cantilever","Drawbridge|draw"],
 ["Bascule","Pontoon|floating","Swing","Viaduct","Box girder","Covered","Footbridge|pedestrian"],
 ["Tied-arch|bowstring|tied arch","Vertical lift|lift","Extradosed","Clapper","Trestle","Transporter","Simple suspension|rope","Moon","Plate girder","Aqueduct","Log"],
-["Stressed ribbon","Vierendeel","Bailey","Tilt","Folding","Retractable","Lenticular truss|lenticular","Network arch","Submersible","Self-anchored suspension","Integral","Burr arch|Burr"]]},
+["Vierendeel","Bailey","Tilt","Folding","Retractable","Network arch","Submersible","Self-anchored suspension","Integral"],
+["Stressed ribbon","Lenticular truss|lenticular","Burr arch|Burr"]]},
 {c:"Machine design",q:"Name a type of gear",s:"gear gears",a:[
 ["Spur","Bevel","Worm"],
 ["Helical","Rack and pinion|rack|pinion","Planetary|epicyclic|sun|planet"],
 ["Herringbone|double helical","Hypoid","Spiral bevel","Ring|internal|annulus","Crown","Mitre|miter"],
 ["Harmonic|strain wave|harmonic drive","Cycloidal","Face","Screw|crossed helical","Zerol bevel|zerol","Magnetic","Sprocket","Straight bevel"],
-["Non-circular|noncircular|elliptical","Cage|lantern","Spiroid","Beveloid|conical involute","Novikov|Wildhaber-Novikov","Helicon","Hirth","Globoid worm|globoid|double enveloping worm"]]},
+["Non-circular|noncircular|elliptical","Cage|lantern","Spiroid","Hirth","Globoid worm|globoid|double enveloping worm"],
+["Beveloid|conical involute","Novikov|Wildhaber-Novikov","Helicon"]]},
 {c:"Machine design",q:"Name a type of bearing",s:"bearing bearings",a:[
 ["Ball","Roller"],
 ["Needle|needle roller","Thrust","Tapered roller|taper roller|tapered","Plain|journal|sleeve|bushing|bush"],
 ["Magnetic","Air|aerostatic|gas","Spherical roller","Angular contact","Fluid|hydrodynamic|fluid film","Linear","Deep groove ball|deep groove"],
 ["Foil|air foil","Jewel","Tilting pad","Flexure","Hydrostatic","Self-aligning ball|self aligning","Slewing|slew ring","Cylindrical roller","Spherical plain|rod end","Pillow block|plummer block"],
-["Crossed roller","Kingsbury","Elastomeric","Michell","Knife-edge|knife edge","Squeeze film","Lazy Susan|turntable","Ceramic hybrid|hybrid ceramic","Wire race"]]},
+["Crossed roller","Kingsbury","Elastomeric","Squeeze film","Lazy Susan|turntable","Ceramic hybrid|hybrid ceramic"],
+["Michell","Knife-edge|knife edge","Wire race"]]},
 {c:"Manufacturing",q:"Name a manufacturing process used to shape metal",s:"process",a:[
 ["Casting","Forging","Machining","Milling","Turning|lathe","Drilling","Welding"],
 ["Extrusion","Rolling","Stamping|pressing","3D printing|additive manufacturing|additive","Grinding","Bending|press brake"],
 ["Die casting","Investment casting|lost wax","Sand casting","Drawing|wire drawing","Deep drawing","Electrical discharge machining|EDM|spark erosion|wire EDM","Laser cutting","Powder metallurgy|sintering","Water jet cutting|waterjet","CNC machining|CNC"],
 ["Hydroforming","Spinning|metal spinning","Broaching","Swaging","Superplastic forming","Electrochemical machining|ECM","Honing","Lapping","Coining","Shearing|blanking|punching","Plasma cutting","Selective laser melting|SLM|laser powder bed fusion|DMLS","Metal injection moulding|MIM|metal injection molding","Hot isostatic pressing|HIP","Peen forming|shot peen forming","Roll forming","Boring","Reaming","Tapping","Stretch forming"],
-["Explosive forming","Electromagnetic forming","Thixoforming|thixocasting|semi-solid forming","Flow forming","Incremental sheet forming","Hobbing","Electron beam melting|EBM","Upsetting|heading|cold heading","Centrifugal casting","Chemical milling|chemical etching","Skiving","Knurling","Creep forming|creep age forming","Wire arc additive manufacturing|WAAM"]]},
+["Explosive forming","Electromagnetic forming","Flow forming","Hobbing","Electron beam melting|EBM","Upsetting|heading|cold heading","Centrifugal casting","Chemical milling|chemical etching","Knurling","Wire arc additive manufacturing|WAAM"],
+["Thixoforming|thixocasting|semi-solid forming","Incremental sheet forming","Skiving","Creep forming|creep age forming"]]},
 {c:"Aircraft systems",q:"Name an aircraft control surface or high-lift device",s:"",a:[
 ["Aileron","Rudder","Elevator","Flap"],
 ["Slat|leading edge slat","Spoiler","Trim tab|tab"],
 ["Elevon","Stabilator|all-moving tailplane|all moving tail","Flaperon","Canard","Airbrake|speed brake|air brake|speedbrake","Fowler flap|Fowler","Slotted flap|double slotted flap","Horizontal stabiliser|tailplane|horizontal stabilizer|trimmable horizontal stabiliser"],
 ["Ruddervator","Krueger flap|Krueger|Kruger flap","Spoileron","Leading edge flap|droop|droop nose|drooped leading edge","Split flap","Servo tab","Taileron","Plain flap","Slot|leading edge slot","Lift dumper|ground spoiler"],
-["Anti-servo tab|antiservo tab","Gurney flap|Gurney|wickerbill","Blown flap|blown","Deceleron","Zap flap|Zap","Junkers flap|Junkers","Gouge flap|Gouge","Fairey-Youngman flap|Youngman","Spring tab","Balance tab|geared tab","Leading edge root extension|LERX|strake","Thrust vectoring nozzle|thrust vectoring","Flettner tab|Flettner"]]},
+["Anti-servo tab|antiservo tab","Gurney flap|Gurney|wickerbill","Blown flap|blown","Junkers flap|Junkers","Spring tab","Balance tab|geared tab","Leading edge root extension|LERX|strake","Thrust vectoring nozzle|thrust vectoring","Flettner tab|Flettner"],
+["Deceleron","Zap flap|Zap","Gouge flap|Gouge","Fairey-Youngman flap|Youngman"]]},
 {c:"Units",q:"Name an SI unit named after a person",s:"degree degrees unit",a:[
 ["Newton|N","Watt|W","Volt|V","Joule|J"],
 ["Pascal|Pa","Hertz|Hz","Ohm","Kelvin|K","Ampere|amp","Celsius"],
 ["Tesla|T","Coulomb|C","Farad|F","Henry|H"],
 ["Weber|Wb","Siemens|S","Becquerel|Bq"],
-["Gray|Gy","Sievert|Sv"]]},
+["Sievert|Sv"],
+["Gray|Gy"]]},
 {c:"Fluid machinery",q:"Name a type of pump",s:"pump pumps",a:[
 ["Centrifugal","Piston|reciprocating","Hand"],
 ["Gear","Diaphragm|membrane","Vacuum","Peristaltic|hose|roller"],
 ["Screw|Archimedes screw|Archimedean screw","Vane|rotary vane","Axial flow|axial|propeller","Jet|ejector|eductor","Lobe|Roots","Plunger","Submersible","Turbopump|turbo"],
 ["Progressive cavity|progressing cavity|Moineau|mono","Turbomolecular","Hydraulic ram|ram","Scroll","Diffusion","Mixed flow","Axial piston|swashplate","Gerotor","Electromagnetic|magnetohydrodynamic|MHD","Radial piston","Syringe","Bilge"],
-["Airlift|air lift","Rope","Regenerative|peripheral|side channel","Cryopump|cryogenic","Sorption","Bellows","Chain","Liquid ring","Ion|sputter ion","Flexible impeller","Pulsometer","Wobble plate|nutating disc"]]},
+["Airlift|air lift","Regenerative|peripheral|side channel","Cryopump|cryogenic","Sorption","Bellows","Chain","Liquid ring","Ion|sputter ion","Flexible impeller"],
+["Rope","Pulsometer","Wobble plate|nutating disc"]]},
 {c:"Structures",q:"Name a type of truss",s:"truss",a:[
 ["Pratt","Warren","Howe"],
 ["King post|kingpost","Queen post|queenpost","K","Bowstring"],
 ["Fink","Scissor|scissors","Vierendeel","Baltimore","Parker"],
 ["Pennsylvania|Petit","Whipple","Town lattice|lattice|Town","Camelback","Fan","Gambrel","Space|space frame","Double Warren|Warren with verticals"],
-["Bollman","Pegram","Burr","Wichert","Lenticular","Post","Thacher","Long","Waddell A|Waddell","Belfast","Allan","Bailey"]]},
+["Bollman","Burr","Lenticular","Post","Long","Belfast","Allan","Bailey"],
+["Pegram","Wichert","Thacher","Waddell A|Waddell"]]},
 {c:"Electronics",q:"Name an electronic component",s:"",a:[
 ["Resistor","Capacitor","Transistor","Diode","LED|light emitting diode"],
 ["Inductor|coil|choke","Transformer","MOSFET","Relay","Fuse","Switch","Op-amp|operational amplifier|opamp","Potentiometer|pot","Integrated circuit|IC|chip|microchip"],
 ["Thyristor|SCR|silicon controlled rectifier","Zener diode|Zener","BJT|bipolar junction transistor|bipolar transistor","Crystal oscillator|crystal|quartz crystal","Varistor|MOV","Thermistor","IGBT","Photodiode","Rectifier|bridge rectifier","Triac","JFET","Optocoupler|opto-isolator|optoisolator","Voltage regulator|regulator","Microcontroller"],
 ["Schottky diode|Schottky","Varactor|varicap","Memristor","Diac","Ferrite bead|ferrite","Tunnel diode|Esaki diode","Phototransistor","Supercapacitor|ultracapacitor","Solenoid","Hall sensor|Hall effect sensor","Vacuum tube|triode|valve|thermionic valve","Photoresistor|LDR|light dependent resistor","Rheostat","Comparator"],
-["Gunn diode|Gunn","IMPATT diode|IMPATT","Unijunction transistor|UJT","Klystron","Magnetron","Travelling-wave tube|TWT|traveling wave tube","Thyratron","PIN diode","HEMT|high electron mobility transistor","Step recovery diode","Gyrator","Circulator","Trimmer|trimmer capacitor","Balun"]]},
+["Gunn diode|Gunn","Unijunction transistor|UJT","Klystron","Magnetron","Travelling-wave tube|TWT|traveling wave tube","PIN diode","HEMT|high electron mobility transistor","Circulator","Trimmer|trimmer capacitor","Balun"],
+["IMPATT diode|IMPATT","Thyratron","Step recovery diode","Gyrator"]]},
 {c:"Metallurgy",q:"Name an alloying element used in steel",s:"",a:[
 ["Carbon|C","Chromium|Cr|chrome","Nickel|Ni"],
 ["Manganese|Mn","Molybdenum|Mo|moly","Vanadium|V","Silicon|Si"],
 ["Tungsten|W|wolfram","Cobalt|Co","Titanium|Ti","Copper|Cu"],
 ["Niobium|Nb|columbium","Boron|B","Aluminium|Aluminum|Al","Nitrogen|N","Phosphorus|P","Sulphur|Sulfur|S"],
-["Selenium|Se","Tellurium|Te","Lead|Pb","Zirconium|Zr","Cerium|Ce","Bismuth|Bi","Calcium|Ca","Tantalum|Ta"]]},
+["Selenium|Se","Lead|Pb","Zirconium|Zr","Calcium|Ca","Tantalum|Ta"],
+["Tellurium|Te","Cerium|Ce","Bismuth|Bi"]]},
 {c:"Materials",q:"Name a mechanical property of a material",s:"",a:[
 ["Strength|tensile strength|ultimate tensile strength|UTS","Hardness","Stiffness|Young's modulus|Youngs modulus|elastic modulus|modulus of elasticity"],
 ["Toughness","Ductility","Yield strength|yield stress|yield","Elasticity","Brittleness","Density"],
 ["Fracture toughness","Poisson's ratio|Poissons ratio","Fatigue strength|endurance limit|fatigue limit|fatigue life","Shear modulus|modulus of rigidity","Malleability","Creep resistance|creep strength","Compressive strength"],
 ["Bulk modulus","Resilience|modulus of resilience","Shear strength","Plasticity","Elongation|elongation at break","Impact strength|impact toughness|Charpy","Wear resistance","Viscoelasticity","Flexural strength|modulus of rupture"],
-["Strain hardening exponent|work hardening exponent","Damping capacity|loss factor|damping","Proof stress|proof strength","Specific stiffness|specific modulus","Specific strength","Coefficient of restitution","Notch sensitivity","Flexural modulus","Reduction of area","Tangent modulus","Hardenability"]]},
+["Proof stress|proof strength","Specific stiffness|specific modulus","Specific strength","Coefficient of restitution","Notch sensitivity","Flexural modulus","Reduction of area","Hardenability"],
+["Strain hardening exponent|work hardening exponent","Damping capacity|loss factor|damping","Tangent modulus"]]},
 {c:"Astronautics",q:"Name a type of spacecraft orbit",s:"orbit orbits",a:[
 ["Geostationary|GEO","Low Earth|LEO","Polar"],
 ["Geosynchronous|GSO","Sun-synchronous|SSO|heliosynchronous","Highly elliptical|HEO|elliptical","Medium Earth|MEO"],
 ["Molniya","Transfer|Hohmann transfer|Hohmann|geostationary transfer|GTO","Equatorial","Halo","Circular","Lunar|selenocentric"],
 ["Tundra","Lissajous","Graveyard|junk|disposal","Heliocentric|solar","Parking","Retrograde","Areostationary|areosynchronous","Inclined","Prograde","Very low Earth|VLEO"],
-["Near-rectilinear halo|NRHO","Horseshoe","Distant retrograde|DRO","Frozen","Lyapunov","Tadpole","Semi-synchronous|semisynchronous","Supersynchronous","Subsynchronous","Quasi-zenith|QZSS","Dawn-dusk|terminator"]]},
+["Near-rectilinear halo|NRHO","Horseshoe","Frozen","Semi-synchronous|semisynchronous","Supersynchronous","Subsynchronous","Quasi-zenith|QZSS","Dawn-dusk|terminator"],
+["Distant retrograde|DRO","Lyapunov","Tadpole"]]},
 {c:"Heat transfer",q:"Name a type of heat exchanger",s:"heat exchanger exchangers",a:[
 ["Shell and tube|shell-and-tube|shell tube","Plate|plate and frame|gasketed plate","Radiator"],
 ["Double pipe|tube in tube|concentric tube|concentric","Finned tube|fin and tube|fin tube","Crossflow|cross flow","Counterflow|counter flow|countercurrent","Condenser","Evaporator","Intercooler"],
 ["Plate-fin|plate fin","Regenerator|regenerative","Recuperator","Cooling tower","Spiral","Air cooled|fin fan|fin-fan","Economiser|economizer","Parallel flow|cocurrent","Boiler","Oil cooler"],
 ["Heat pipe","Printed circuit|PCHE","Rotary wheel|thermal wheel|Ljungström|rotary|heat wheel","Scraped surface","Plate and shell","Helical coil|coil","Kettle reboiler|reboiler","Microchannel","Brazed plate","Feedwater heater"],
-["Pillow plate","Run-around coil|runaround coil","Bayonet","Hairpin","Direct contact","Lamella","Precooler","U-tube","Fluidised bed|fluidized bed","Pebble bed"]]},
+["Run-around coil|runaround coil","Hairpin","Direct contact","Precooler","U-tube","Fluidised bed|fluidized bed","Pebble bed"],
+["Pillow plate","Bayonet","Lamella"]]},
 {c:"Fluid systems",q:"Name a type of valve",s:"valve valves",a:[
 ["Ball","Gate","Check|non-return|one way|nonreturn"],
 ["Butterfly","Globe","Needle","Relief|safety|pressure relief","Solenoid"],
 ["Diaphragm","Plug","Poppet","Pinch","Spool","Throttle","Pressure reducing|pressure regulator|regulator|reducing","Control"],
 ["Reed","Sleeve","Knife gate|knife","Angle","Schrader","Presta","Foot","Float|ballcock","Rotary","Servo","Bleed","Three-way|3 way","Stop|stopcock|shut off|isolation"],
-["Tesla|valvular conduit","Duckbill","Desmodromic","Dunlop|Woods","Shuttle","Flapper","Pilot operated|pilot","Thermostatic expansion|TXV|expansion","Pyrotechnic|pyro|squib","Blowoff|blow off|dump","Burst disc|rupture disc","Cartridge"]]},
+["Tesla|valvular conduit","Duckbill","Shuttle","Flapper","Pilot operated|pilot","Thermostatic expansion|TXV|expansion","Blowoff|blow off|dump","Burst disc|rupture disc","Cartridge"],
+["Desmodromic","Dunlop|Woods","Pyrotechnic|pyro|squib"]]},
 {c:"Computation",q:"Name a numerical method used in engineering analysis",s:"method methods rule scheme analysis",a:[
 ["Finite element|FEM|FEA","Newton-Raphson|Newton|Newtons","Euler|forward Euler|explicit Euler"],
 ["Runge-Kutta|RK4","Finite difference|FDM","Finite volume|FVM","Monte Carlo","Gaussian elimination|Gauss elimination","Simpson's|Simpsons|Simpson","Trapezoidal|trapezium|trapezoid","Bisection"],
 ["Gauss-Seidel","Jacobi","Crank-Nicolson","Boundary element|BEM","Secant","LU decomposition|LU factorisation|LU factorization|LU","Conjugate gradient","Panel","Vortex lattice|VLM","Backward Euler|implicit Euler","Least squares"],
 ["Galerkin","Spectral|pseudospectral","Lattice Boltzmann|LBM","Smoothed particle hydrodynamics|SPH","Newmark-beta|Newmark","Multigrid","Successive over-relaxation|SOR","Adams-Bashforth","Discrete element|DEM","Gaussian quadrature|Gauss quadrature","Method of characteristics|characteristics","Blade element momentum|blade element","Cholesky decomposition|Cholesky"],
-["Lax-Wendroff","Verlet|velocity Verlet|leapfrog","Rayleigh-Ritz|Ritz","GMRES","MacCormack","Discontinuous Galerkin","Material point|MPM","Adams-Moulton","Arc-length|Riks","Thomas algorithm|tridiagonal matrix algorithm|TDMA","Hardy Cross|moment distribution","Direct simulation Monte Carlo|DSMC","Doublet lattice"]]},
+["Lax-Wendroff","Verlet|velocity Verlet|leapfrog","Rayleigh-Ritz|Ritz","GMRES","MacCormack","Discontinuous Galerkin","Adams-Moulton","Thomas algorithm|tridiagonal matrix algorithm|TDMA","Direct simulation Monte Carlo|DSMC"],
+["Material point|MPM","Arc-length|Riks","Hardy Cross|moment distribution","Doublet lattice"]]},
 {c:"Civil",q:"Name a type of dam",s:"dam dams",a:[
 ["Arch","Gravity","Embankment|earth|earthfill|earth fill|earthen"],
 ["Rockfill|rock fill","Buttress","Hydroelectric|hydro","Weir"],
 ["Arch-gravity|arch gravity","Cofferdam|coffer","Barrage","Tailings","Check","Concrete-face rockfill|CFRD|concrete faced rockfill","Concrete"],
 ["Multiple arch","Roller-compacted concrete|RCC|roller compacted","Saddle","Diversion","Detention|flood control","Steel","Double curvature arch|dome","Masonry","Storage"],
-["Timber crib|timber|crib","Inflatable|rubber","Ambursen|flat slab buttress","Underground|subsurface|groundwater","Sand","Hollow gravity","Beaver","Ice","Debris|sabo"]]},
+["Inflatable|rubber","Underground|subsurface|groundwater","Sand","Hollow gravity","Beaver","Debris|sabo"],
+["Timber crib|timber|crib","Ambursen|flat slab buttress","Ice"]]},
 {c:"Propulsion",q:"Name a part of a jet engine",s:"",a:[
 ["Compressor","Turbine","Combustor|combustion chamber|burner|combustion","Fan"],
 ["Nozzle|exhaust nozzle|propelling nozzle|exhaust","Afterburner|reheat","Inlet|intake|air intake","Blade|fan blade|turbine blade|compressor blade","Shaft|spool"],
 ["Stator|vane|stator vane","Nacelle","Thrust reverser|reverser","Bypass duct|bypass","Diffuser","Fuel injector|fuel nozzle|injector","Igniter|ignitor","Gearbox|accessory gearbox","High pressure turbine|HPT","Low pressure compressor|LPC|high pressure compressor|HPC|low pressure turbine|LPT"],
 ["Nozzle guide vane|NGV","Inlet guide vane|IGV","Bleed valve|bleed","Spinner|nose cone","FADEC|engine control unit","Flame holder|flameholder","Variable stator vane|VSV","Disc|disk|turbine disc","Bearing","Cowl|cowling","Starter","Shroud","Fuel pump","Casing|fan case|case"],
-["Blisk|bladed disk","Labyrinth seal","Chevron","Outlet guide vane|OGV","Swirler","Tower shaft|radial drive shaft","Brush seal","Combustor liner|liner|flame tube","Lobed mixer|mixer","Fir-tree root|fir tree","Tail cone|exhaust cone|exhaust plug|plug","Splitter","Acoustic liner","Oil sump|sump"]]},
+["Blisk|bladed disk","Labyrinth seal","Chevron","Outlet guide vane|OGV","Swirler","Combustor liner|liner|flame tube","Tail cone|exhaust cone|exhaust plug|plug","Splitter","Acoustic liner","Oil sump|sump"],
+["Tower shaft|radial drive shaft","Brush seal","Lobed mixer|mixer","Fir-tree root|fir tree"]]},
 {c:"Electrical machines",q:"Name a type of electric motor",s:"motor motors electric",a:[
 ["DC|direct current","AC|alternating current","Induction|asynchronous"],
 ["Stepper|stepping|step","Servo|servomotor","Brushless|BLDC|brushless DC","Brushed|brushed DC","Synchronous"],
 ["Universal","Linear","Squirrel cage","Permanent magnet|PMSM|permanent magnet synchronous","Shaded pole","Three phase|3 phase","Single phase"],
 ["Switched reluctance|SRM","Hub|in-wheel","Coreless|ironless","Wound rotor|slip ring","Axial flux|pancake","Series wound|series","Shunt wound|shunt","Hysteresis","Reluctance|synchronous reluctance","Capacitor start|capacitor run","Compound wound|compound","Outrunner","Gearmotor|geared"],
-["Piezoelectric|ultrasonic|piezo","Homopolar|Faraday","Repulsion","Electrostatic","Ball bearing","Torque","Voice coil","Vernier","Doubly fed|DFIG","Printed armature","Transverse flux","Split phase"]]},
+["Piezoelectric|ultrasonic|piezo","Homopolar|Faraday","Electrostatic","Torque","Voice coil","Vernier","Doubly fed|DFIG","Split phase"],
+["Repulsion","Ball bearing","Printed armature","Transverse flux"]]},
 {c:"Software",q:"Name a CAD or engineering simulation software package",s:"",a:[
 ["SolidWorks","AutoCAD","MATLAB","ANSYS"],
 ["CATIA","Fusion 360|Fusion|Autodesk Fusion","Simulink","Inventor|Autodesk Inventor","Revit","Fluent|ANSYS Fluent","Excel"],
 ["Abaqus","NX|Siemens NX|Unigraphics","Creo|Pro/Engineer|ProE|Pro Engineer","COMSOL|COMSOL Multiphysics","OpenFOAM","Onshape","FreeCAD","LabVIEW","Nastran|MSC Nastran","Rhino|Rhinoceros","SketchUp","Python","Blender"],
 ["STAR-CCM+|STAR CCM|StarCCM","LS-DYNA|LSDYNA","XFOIL","HyperMesh|HyperWorks","Solid Edge","Patran","ParaView","KiCad","SPICE|LTspice|PSpice","Aspen|HYSYS|Aspen Plus|Aspen HYSYS","Altium|Altium Designer","Tekla","ETABS","SAP2000","CFX|ANSYS CFX","Civil 3D","Strand7","Space Gass","Mathcad","Octave|GNU Octave"],
-["OpenVSP|VSP","AVL","SU2","CalculiX","Code_Aster|Code Aster","Adams|MSC Adams","Tecplot","GMAT","STK|Systems Tool Kit","Gmsh","Elmer","Salome","DATCOM","XFLR5","OpenRocket","FlightStream","NASTRAN-95","Modelica|OpenModelica|Dymola","RocketCEA|CEA","Cantera"]]},
+["OpenVSP|VSP","AVL","SU2","CalculiX","Adams|MSC Adams","Tecplot","GMAT","STK|Systems Tool Kit","Gmsh","Salome","XFLR5","OpenRocket","Modelica|OpenModelica|Dymola","Cantera"],
+["Code_Aster|Code Aster","Elmer","DATCOM","FlightStream","NASTRAN-95","RocketCEA|CEA"]]},
 {c:"Digital logic",q:"Name a logic gate",s:"gate gates logic",a:[
 ["AND","OR","NOT|inverter"],
 ["NAND","NOR","XOR|exclusive or"],
 ["XNOR|exclusive nor","Buffer"],
 ["Tri-state buffer|tristate|tri state|three state","Majority","Transmission|pass","IMPLY|implication"],
-["Toffoli|CCNOT","Fredkin|CSWAP","CNOT|controlled NOT","Hadamard","NIMPLY","AOI|and-or-invert","OAI|or-and-invert","SWAP"]]},
+["Toffoli|CCNOT","CNOT|controlled NOT","Hadamard","AOI|and-or-invert","SWAP"],
+["Fredkin|CSWAP","NIMPLY","OAI|or-and-invert"]]},
 {c:"Propulsion",q:"Name a rocket or spacecraft propellant",s:"propellant fuel oxidiser oxidizer",a:[
 ["Liquid hydrogen|hydrogen|LH2","Kerosene|RP-1|RP1","Liquid oxygen|oxygen|LOX"],
 ["Methane|liquid methane|LNG|methalox|liquid natural gas","Hydrazine","Solid|solid propellant"],
 ["UDMH|unsymmetrical dimethylhydrazine","MMH|monomethylhydrazine","Nitrogen tetroxide|NTO|N2O4|dinitrogen tetroxide","APCP|ammonium perchlorate|ammonium perchlorate composite","Hydrogen peroxide|HTP|peroxide","Xenon","Nitrous oxide|N2O","Ethanol|alcohol"],
 ["Aerozine 50|Aerozine","HTPB","Nitric acid|RFNA|IRFNA|red fuming nitric acid","Black powder|gunpowder","Krypton","Ammonia","Argon","Paraffin|paraffin wax","Propane","Cold gas|nitrogen","Aluminium|Aluminum|aluminium powder","PBAN","Water","Sugar|rocket candy"],
-["Liquid fluorine|fluorine","Pentaborane","Syntin","Iodine","Hydroxylammonium nitrate|HAN|AF-M315E|ASCENT","LMP-103S|ADN|ammonium dinitramide","Chlorine trifluoride|ClF3","Tonka","ALICE|aluminium ice","Mixed oxides of nitrogen|MON","Hydyne","JP-10","Lithium","Nitromethane","Furfuryl alcohol"]]}
+["Liquid fluorine|fluorine","Iodine","Hydroxylammonium nitrate|HAN|AF-M315E|ASCENT","LMP-103S|ADN|ammonium dinitramide","Chlorine trifluoride|ClF3","Mixed oxides of nitrogen|MON","JP-10","Lithium","Nitromethane","Furfuryl alcohol"],
+["Pentaborane","Syntin","Tonka","ALICE|aluminium ice","Hydyne"]]}
 ];
 
 function normAns(s,strip){
@@ -430,7 +470,7 @@ var SLIDERS=[
 {c:"Thermodynamics",q:"A heat engine runs between 900 K and 300 K. Estimate its maximum possible efficiency",u:"%",min:0,max:100,step:0.1,ans:66.7,n:"Carnot efficiency is 1 − 300/900, or 66.7 %."},
 {c:"Mechanics",q:"Estimate the gravitational acceleration on the surface of the Moon",u:"m/s²",min:0.1,max:10,step:0.01,ans:1.62,n:"1.62 m/s², about one sixth of the value on Earth."}
 ];
-function sliderTier(v,ans){var e=Math.abs(v-ans)/ans;return e<=0.03?4:e<=0.08?3:e<=0.15?2:e<=0.30?1:e<=0.50?0:-1;}
+function sliderTier(v,ans){var e=Math.abs(v-ans)/ans;return e<=0.01?5:e<=0.03?4:e<=0.08?3:e<=0.15?2:e<=0.30?1:e<=0.50?0:-1;}
 
 /* Pointer rounds: click the right place on a diagram (viewBox 600 x 340). Scored on distance. */
 function axes(xl,yl){return '<path class="ax" d="M60,25 V300 H570"/><text x="315" y="328" text-anchor="middle">'+xl+'</text><text transform="rotate(-90 26 165)" x="26" y="165" text-anchor="middle">'+yl+'</text>';}
@@ -478,7 +518,7 @@ var POINTERS=[
 {c:"Solid mechanics",d:"mohr",q:"Point to the major principal stress on this Mohr's circle",t:[[410,170]],n:"The rightmost point, where shear stress is zero."},
 {c:"Fluid machinery",d:"pump",q:"Point to the operating point of this pump",t:[PUMP_OP],n:"Where the pump curve crosses the system curve."}
 ];
-function pointerScore(q,x,y){var wy=q.wy||1,best=1e9,bt=q.t[0];q.t.forEach(function(p){var d=Math.hypot(x-p[0],(y-p[1])*wy);if(d<best){best=d;bt=p;}});return {t:best<=14?4:best<=28?3:best<=50?2:best<=85?1:best<=130?0:-1,target:bt};}
+function pointerScore(q,x,y){var wy=q.wy||1,best=1e9,bt=q.t[0];q.t.forEach(function(p){var d=Math.hypot(x-p[0],(y-p[1])*wy);if(d<best){best=d;bt=p;}});return {t:best<=7?5:best<=14?4:best<=28?3:best<=50?2:best<=85?1:best<=130?0:-1,target:bt};}
 function shuf(n,rand){var a=[];for(var i=0;i<n;i++)a.push(i);for(i=n-1;i>0;i--){var j=Math.floor(rand()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;}return a;}
 /* Discipline tags: a aerospace, m mechanical, c civil, e electrical, h chemical */
 (function(){
@@ -493,61 +533,71 @@ PROMPTS=PROMPTS.concat([
 ["Monopole|whip","Patch|microstrip","Loop","Horn"],
 ["Helical|helix","Log-periodic|LPDA|log periodic","Phased array|array","Slot","Ground plane","Rubber ducky"],
 ["Folded dipole","Vivaldi|tapered slot","Discone","Turnstile|crossed dipole","Cassegrain","Spiral","Bowtie|bow-tie|bow tie","Rhombic","Collinear","Ferrite rod|loopstick","PIFA|inverted F|planar inverted F","Quad|cubical quad"],
-["Beverage","Biconical","Fractal","Lens|Luneburg lens","Leaky wave","Halo","J-pole|J pole","Quadrifilar helix|QFH","Dielectric resonator","Batwing|superturnstile","Reflectarray","Zepp|Zeppelin","Curtain array|Sterba curtain|curtain"]]},
+["Biconical","Fractal","Lens|Luneburg lens","Leaky wave","Halo","J-pole|J pole","Quadrifilar helix|QFH","Dielectric resonator","Reflectarray"],
+["Beverage","Batwing|superturnstile","Zepp|Zeppelin","Curtain array|Sterba curtain|curtain"]]},
 {g:"eh",c:"Energy storage",q:"Name a battery chemistry",s:"battery batteries cell",a:[
 ["Lithium-ion|Li-ion|lithium ion|lithium","Lead-acid|lead acid","Alkaline"],
 ["Nickel-metal hydride|NiMH|nickel metal hydride","Nickel-cadmium|NiCd|NiCad|nickel cadmium","Lithium polymer|LiPo|Li-po","Zinc-carbon|zinc carbon|carbon zinc"],
 ["Lithium iron phosphate|LFP|LiFePO4","Solid-state|solid state","Sodium-ion|sodium ion|Na-ion","Silver oxide","Zinc-air|zinc air","NMC|nickel manganese cobalt|lithium nickel manganese cobalt oxide","Lithium cobalt oxide|LCO"],
 ["Vanadium redox flow|vanadium redox|flow|redox flow|vanadium flow|vanadium","Lithium-sulphur|lithium sulfur|Li-S","Sodium-sulphur|sodium sulfur|NaS","Nickel-iron|Edison|NiFe|nickel iron","Lithium titanate|LTO","NCA|nickel cobalt aluminium|nickel cobalt aluminum","Nickel-hydrogen|NiH2|nickel hydrogen","Mercury|mercury oxide","Lithium manganese oxide|LMO","Lithium thionyl chloride","AGM|absorbent glass mat","Gel"],
-["Zinc-bromine|zinc bromine","Molten salt|ZEBRA|sodium nickel chloride","Lithium-air|lithium air","Aluminium-air|aluminum air|aluminium air","Nickel-zinc|NiZn|nickel zinc","Silver-zinc|silver zinc","Iron-air|iron air","Magnesium-ion|magnesium ion|magnesium","Thermal","Daniell","Voltaic pile|voltaic","Leclanché","Betavoltaic|nuclear","Liquid metal","Zinc chloride"]]},
+["Zinc-bromine|zinc bromine","Molten salt|ZEBRA|sodium nickel chloride","Lithium-air|lithium air","Aluminium-air|aluminum air|aluminium air","Nickel-zinc|NiZn|nickel zinc","Silver-zinc|silver zinc","Thermal","Daniell","Voltaic pile|voltaic","Leclanché","Liquid metal"],
+["Iron-air|iron air","Magnesium-ion|magnesium ion|magnesium","Betavoltaic|nuclear","Zinc chloride"]]},
 {g:"e",c:"Communications",q:"Name a modulation scheme",s:"modulation keying",a:[
 ["AM|amplitude","FM|frequency"],
 ["PWM|pulse width","QAM|quadrature amplitude|16-QAM|64-QAM|256-QAM","PM|phase"],
 ["FSK|frequency shift","PSK|phase shift","ASK|amplitude shift|OOK|on-off|on off","OFDM|orthogonal frequency division multiplexing","BPSK|binary phase shift","QPSK|quadrature phase shift","PCM|pulse code","SSB|single sideband"],
 ["PAM|pulse amplitude","PPM|pulse position","GFSK|Gaussian frequency shift","MSK|minimum shift","GMSK|Gaussian minimum shift","DSB|double sideband|DSB-SC","Delta-sigma|sigma-delta|delta","Spread spectrum|DSSS|FHSS|frequency hopping|direct sequence","8PSK","DPSK|differential phase shift","Chirp spread spectrum|CSS|LoRa|chirp"],
-["VSB|vestigial sideband|8VSB","OQPSK|offset QPSK","APSK|amplitude phase shift","CPM|continuous phase","Trellis coded|TCM","PDM|pulse density","DQPSK","CPFSK","COFDM","ISB|independent sideband","DMT|discrete multitone","OTFS"]]},
+["VSB|vestigial sideband|8VSB","OQPSK|offset QPSK","APSK|amplitude phase shift","Trellis coded|TCM","PDM|pulse density","DQPSK","CPFSK","COFDM"],
+["CPM|continuous phase","ISB|independent sideband","DMT|discrete multitone","OTFS"]]},
 {g:"e",c:"Signal processing",q:"Name a type of electronic or signal filter",s:"filter filters",a:[
 ["Low-pass|lowpass|low pass","High-pass|highpass|high pass","Band-pass|bandpass|band pass"],
 ["Notch|band-stop|bandstop|band stop|band reject","RC","Active","Passive"],
 ["Butterworth","Chebyshev","Kalman","FIR|finite impulse response","IIR|infinite impulse response","LC","Anti-aliasing|antialiasing|anti aliasing","Digital"],
 ["Bessel","Elliptic|Cauer","Sallen-Key|Sallen Key","All-pass|allpass|all pass","Comb","Moving average","SAW|surface acoustic wave","Crystal","Matched","Median","Pi","Biquad"],
-["Gaussian","Linkwitz-Riley|Linkwitz Riley","State variable","Switched capacitor","Savitzky-Golay|Savitzky Golay","Wiener","Cavity","Legendre|optimum L","Twin-T|twin T","Lattice","CIC|cascaded integrator comb","Raised cosine|root raised cosine","Polyphase"]]},
+["Gaussian","State variable","Switched capacitor","Savitzky-Golay|Savitzky Golay","Wiener","Cavity","Lattice","Raised cosine|root raised cosine","Polyphase"],
+["Linkwitz-Riley|Linkwitz Riley","Legendre|optimum L","Twin-T|twin T","CIC|cascaded integrator comb"]]},
 {g:"h",c:"Process engineering",q:"Name a unit operation used in chemical processing",s:"",a:[
 ["Distillation","Filtration","Mixing|blending|agitation"],
 ["Evaporation","Drying","Absorption|gas absorption|scrubbing","Crystallisation|crystallization","Heat exchange|heat transfer","Extraction|liquid-liquid extraction|solvent extraction"],
 ["Adsorption","Centrifugation|centrifuging","Sedimentation|settling|clarification","Membrane separation|reverse osmosis|ultrafiltration","Stripping","Leaching","Condensation","Size reduction|crushing|grinding|milling|comminution","Pumping|fluid transport"],
 ["Flotation|froth flotation","Humidification|dehumidification","Fluidisation|fluidization","Ion exchange","Screening|sieving","Flash separation|flash|flash distillation","Chromatography","Granulation|agglomeration","Extrusion","Compression","Decanting|decantation"],
-["Pervaporation","Electrodialysis","Freeze drying|lyophilisation|lyophilization","Elutriation","Spray drying","Thickening","Zone refining","Sublimation","Cyclone separation|cyclone","Electrostatic precipitation","Prilling","Supercritical fluid extraction","Molecular distillation"]]},
+["Electrodialysis","Freeze drying|lyophilisation|lyophilization","Spray drying","Thickening","Zone refining","Sublimation","Cyclone separation|cyclone","Electrostatic precipitation","Supercritical fluid extraction"],
+["Pervaporation","Elutriation","Prilling","Molecular distillation"]]},
 {g:"h",c:"Reaction engineering",q:"Name a type of chemical reactor",s:"reactor reactors",a:[
 ["Batch","CSTR|continuous stirred tank|stirred tank","Plug flow|PFR|tubular"],
 ["Packed bed|fixed bed|PBR","Fluidised bed|fluidized bed|FBR","Semi-batch|semibatch|fed batch|semi batch"],
 ["Bioreactor|fermenter|fermentor","Trickle bed","Bubble column","Membrane","Autoclave"],
 ["Loop","Microreactor|micro","Moving bed","Slurry","Airlift","Photoreactor|photochemical","Electrochemical|electrolyser|electrolyzer","Riser","Multitubular|shell and tube","Monolith"],
-["Spinning disc|spinning disk","Oscillatory baffled|OBR","Reactive distillation|reactive distillation column","Chemostat","Rotary kiln|kiln","Ebullated bed","Radial flow","Plasma","Sonochemical|sonoreactor","Recycle","Laminar flow|LFR","Fluid catalytic cracker|FCC","Taylor-Couette|Couette-Taylor"]]},
+["Reactive distillation|reactive distillation column","Chemostat","Rotary kiln|kiln","Ebullated bed","Radial flow","Plasma","Recycle","Laminar flow|LFR","Fluid catalytic cracker|FCC"],
+["Spinning disc|spinning disk","Oscillatory baffled|OBR","Sonochemical|sonoreactor","Taylor-Couette|Couette-Taylor"]]},
 {g:"hm",c:"Polymers",q:"Name a polymer or plastic",s:"",a:[
 ["Polyethylene|PE|polythene|HDPE|LDPE","PVC|polyvinyl chloride|vinyl","Nylon|polyamide|PA|nylon 6|nylon 66","Polystyrene|PS|styrofoam"],
 ["Polypropylene|PP","PET|polyethylene terephthalate|polyester|PETE","PTFE|Teflon|polytetrafluoroethylene","Acrylic|PMMA|perspex|plexiglass|polymethyl methacrylate","Polycarbonate|PC|Lexan","ABS|acrylonitrile butadiene styrene","Rubber|natural rubber|polyisoprene|latex","Silicone|PDMS"],
 ["Polyurethane|PU|PUR","Epoxy","Kevlar|aramid|Nomex","PLA|polylactic acid","Neoprene|polychloroprene","PEEK|polyether ether ketone","Acetal|POM|Delrin|polyoxymethylene","Bakelite|phenolic|phenol formaldehyde","UHMWPE|Dyneema|Spectra"],
 ["PVDF|polyvinylidene fluoride|Kynar","Polyimide|Kapton|PI","PPS|polyphenylene sulfide|polyphenylene sulphide","PEI|Ultem|polyetherimide","PBT|polybutylene terephthalate","Polysulfone|PSU|polysulphone","EVA|ethylene vinyl acetate","PETG","Nitrile|NBR|nitrile rubber|Buna-N","EPDM","TPU|thermoplastic polyurethane","Viton|FKM|fluoroelastomer","SBR|styrene butadiene","Cellulose acetate","PVA|polyvinyl alcohol","Melamine|melamine formaldehyde","Butyl|butyl rubber","ASA","HIPS"],
-["PAI|Torlon|polyamide-imide","PCTFE|Kel-F","PBI|polybenzimidazole","PEKK","FEP","PFA","ETFE","Liquid crystal polymer|LCP|Vectran","Zylon|PBO","PPO|polyphenylene oxide|Noryl|PPE","PHA|polyhydroxyalkanoate","Polycaprolactone|PCL","Parylene","Vespel","PES|polyethersulfone","Polyacrylonitrile|PAN","COC|cyclic olefin copolymer","PPSU|Radel","Nafion"]]},
+["PEKK","FEP","PFA","ETFE","Liquid crystal polymer|LCP|Vectran","Zylon|PBO","PPO|polyphenylene oxide|Noryl|PPE","PHA|polyhydroxyalkanoate","Polycaprolactone|PCL","Vespel","PES|polyethersulfone","Polyacrylonitrile|PAN","Nafion"],
+["PAI|Torlon|polyamide-imide","PCTFE|Kel-F","PBI|polybenzimidazole","Parylene","COC|cyclic olefin copolymer","PPSU|Radel"]]},
 {g:"h",c:"Industrial chemistry",q:"Name an industrial chemical process named after a person",s:"process",a:[
 ["Haber|Haber-Bosch|Haber Bosch"],
 ["Fischer-Tropsch|Fischer Tropsch","Bessemer","Solvay"],
 ["Ostwald","Claus","Bayer","Hall-Héroult|Hall Heroult|Hall","Kroll","Sabatier","Bosch"],
 ["Linde","Mond","Wacker","Deacon","Frasch","Czochralski","Siemens","Bergius","Leblanc","Birkeland-Eyde|Birkeland Eyde","Castner-Kellner|Castner","Downs","Dow","Pidgeon","Hunter"],
-["Raschig","Hock","Bosch-Meiser|Bosch Meiser","Parkes","Girdler|Girdler sulfide","Wohlwill","Miller","Stöber","Reppe","Ziegler|Ziegler-Natta","Betts","Andrussow","Kolbe-Schmitt|Kolbe","Hargreaves","Weldon","Acheson","Verneuil","Pattinson","van Arkel-de Boer|van Arkel|crystal bar"]]},
+["Raschig","Hock","Parkes","Miller","Stöber","Reppe","Ziegler|Ziegler-Natta","Andrussow","Kolbe-Schmitt|Kolbe","Weldon","Acheson","Verneuil","van Arkel-de Boer|van Arkel|crystal bar"],
+["Bosch-Meiser|Bosch Meiser","Girdler|Girdler sulfide","Wohlwill","Betts","Hargreaves","Pattinson"]]},
 {g:"c",c:"Geotechnical",q:"Name a type of foundation used in construction",s:"foundation foundations footing footings",a:[
 ["Pile|piled|piling","Slab|slab on grade|concrete slab","Strip"],
 ["Raft|mat","Pad|spread|isolated|individual","Shallow","Deep","Pier"],
 ["Caisson","Screw pile|helical pile|screw|helical","Bored pile|drilled shaft|bored|drilled pier","Driven pile|driven","Combined","Basement"],
 ["Micropile|mini pile|minipile","Floating|compensated|buoyancy","Strap|cantilever","Grillage","Well","Piled raft","Trench fill|trench","Crawl space","Stem wall|T-shaped","Monopile","Rubble trench","Post|pole|stilt|stump"],
-["Under-reamed pile|under reamed|belled","Suction caisson|suction bucket|suction pile","Gravity base|gravity","Jacket","Frost-protected shallow|frost protected","CFA pile|continuous flight auger|auger cast","Barrette","Tripod","Stone column|vibro stone column","Franki pile|Franki"]]},
+["Suction caisson|suction bucket|suction pile","Gravity base|gravity","Jacket","Frost-protected shallow|frost protected","CFA pile|continuous flight auger|auger cast","Tripod","Stone column|vibro stone column"],
+["Under-reamed pile|under reamed|belled","Barrette","Franki pile|Franki"]]},
 {g:"c",c:"Structures",q:"Name a type of load considered in structural design",s:"load loads loading",a:[
 ["Dead|permanent|self weight|self-weight","Live|imposed","Wind"],
 ["Snow","Seismic|earthquake","Point|concentrated","Distributed|uniformly distributed|UDL"],
 ["Impact","Thermal|temperature","Hydrostatic|water pressure|fluid","Earth pressure|soil pressure|lateral earth pressure|soil","Dynamic","Traffic|vehicle","Axial","Lateral"],
 ["Blast|explosion","Fatigue|cyclic","Settlement|differential settlement","Ice","Wave","Construction|erection","Prestress|prestressing","Rain|ponding","Flood","Buoyancy|uplift","Accidental","Crowd|pedestrian","Torsional|torsion","Superimposed dead|SDL","Crane"],
-["Creep","Shrinkage","Braking|longitudinal","Centrifugal","Vessel collision|collision|ship impact","Notional|notional horizontal","Pattern","Surcharge","Stream flow|current","Vortex shedding|aeroelastic","Tsunami","Fire","Mooring","Derailment","Hydrodynamic"]]}
+["Creep","Shrinkage","Braking|longitudinal","Centrifugal","Surcharge","Stream flow|current","Vortex shedding|aeroelastic","Tsunami","Fire","Mooring","Hydrodynamic"],
+["Vessel collision|collision|ship impact","Notional|notional horizontal","Pattern","Derailment"]]}
 ]);
 SLIDERS=SLIDERS.concat([
 {g:"e",c:"Semiconductors",q:"Estimate the bandgap of silicon at room temperature",u:"eV",min:0.1,max:5,step:0.01,ans:1.12,n:"About 1.12 eV, which sets the roughly 0.7 V forward drop of a silicon diode."},
@@ -592,7 +642,7 @@ function pickRound(rand,disc){
   var seen={},n=0;pool(POINTERS).forEach(function(i){var d=POINTERS[i].d;if(n<2&&!seen[d]){seen[d]=1;n++;out.push({k:"p",i:i});}});
   var o=shuf(out.length,rand);return o.map(function(i){return out[i];});
 }
-if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},get SLIDERS(){return SLIDERS;},get POINTERS(){return POINTERS;},DIAGRAMS:DIAGRAMS,pickRound:pickRound,pointerScore:pointerScore,sliderTier:sliderTier,matchAnswer:matchAnswer,normAns:normAns,rng:rng};}
+if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},get SLIDERS(){return SLIDERS;},get POINTERS(){return POINTERS;},DIAGRAMS:DIAGRAMS,pickRound:pickRound,pointerScore:pointerScore,sliderTier:sliderTier,sigmaOf:sigmaOf,TIERS:TIERS,matchAnswer:matchAnswer,normAns:normAns,rng:rng};}
 </script>
 <script>
 (function(){
@@ -600,21 +650,48 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
   var S={mode:"daily",disc:"",order:[],i:0,score:0,res:[],tick:null,t0:0};
   var DISC=[["","All disciplines"],["a","Aerospace"],["m","Mechanical"],["c","Civil"],["e","Electrical"],["h","Chemical"]];
   function discName(){for(var i=0;i<DISC.length;i++)if(DISC[i][0]===S.disc)return DISC[i][1];return "";}
-  var BLURB=["The obvious answer, or a rough guess","A decent answer, or within 30 %","A specialist answer, or within 15 %","A deep cut, or within 8 %","Almost nobody finds it, or within 3 %"];
+  var BLURB=["The obvious answer, or a rough guess","A decent answer, or within 30 %","A specialist answer, or within 15 %","A deep cut, or within 8 %","Hardly anyone finds it, or within 3 %","Almost nobody finds it, or within 1 %"];
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
   function today(){var d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
   function dayNo(){var d=new Date();var a=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()),b=Date.UTC(2026,10,21);return Math.max(1,Math.round((a-b)/864e5)+1);}
   function hash(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h;}
-  function km(score){return (score/7).toFixed(1);}
+  function sig(score){return (Math.floor(sigmaOf(score)*10+1e-9)/10).toFixed(1);}
   function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
-  var LAND=[[8.8,"Everest"],[18,"Concorde cruise"],[41,"Highest skydive"],[53,"Record balloon"],[82,"Noctilucent clouds"],[100,"K\u00e1rm\u00e1n line"]];
-  (function(){var sc=document.getElementById("scale");LAND.forEach(function(l){var d=document.createElement("div");d.className="lm"+(l[0]===100?" goal":"");d.style.bottom=l[0]+"%";d.dataset.km=l[0];d.innerHTML="<b>"+l[0]+"</b> "+l[1];sc.appendChild(d);});})();
-  function setAlt(score){var a=score/7;root.style.setProperty("--alt",Math.min(1,score/700));document.getElementById("alt-label").textContent=km(score);
-    Array.prototype.forEach.call(document.querySelectorAll(".lm"),function(e){e.classList.toggle("lit",a>=+e.dataset.km);});}
+  /* Bell curve: x runs from -3σ to +6σ across a 900 x 100 box. A strip along the baseline keeps progress visible in the flat tail. */
+  var BX0=-3,BX1=6,bellNow=0,bellRaf=0;
+  function bellX(s){return (s-BX0)/(BX1-BX0)*900;}
+  function bellY(s){return 91-86*Math.exp(-s*s/2);}
+  (function(){
+    var d="",s;for(s=BX0;s<=BX1+1e-9;s+=0.05)d+=(d?" L":"M")+bellX(s).toFixed(1)+","+bellY(s).toFixed(2);
+    document.getElementById("bell-line").setAttribute("d",d);
+    var area=d+" L900,100 L0,100 Z";
+    document.getElementById("bell-bg").setAttribute("d",area);document.getElementById("bell-fill").setAttribute("d",area);
+    var cv=document.getElementById("curve"),g="";
+    for(var n=0;n<=6;n++){
+      g+='<path class="grid" d="M'+bellX(n)+','+bellY(n).toFixed(2)+' V100"/>';
+      var t=document.createElement("span");t.className="tk"+(n===6?" goal":"");t.style.left=(bellX(n)/9)+"%";t.dataset.s=n;t.textContent=n?n+"\u03c3":"\u03bc";cv.appendChild(t);
+    }
+    document.getElementById("bell-grid").innerHTML=g;
+  })();
+  function drawBell(s){
+    bellNow=s;
+    document.getElementById("bell-rect").setAttribute("width",bellX(s).toFixed(1));
+    var m=document.getElementById("mark");m.style.left=(bellX(s)/9)+"%";m.firstChild.style.top=bellY(s)+"%";
+  }
+  function setSig(score){
+    var to=sigmaOf(score),from=bellNow,s0=performance.now();
+    document.getElementById("sig-label").textContent=sig(score);
+    Array.prototype.forEach.call(document.querySelectorAll(".tk"),function(e){e.classList.toggle("lit",to>=+e.dataset.s);});
+    cancelAnimationFrame(bellRaf);
+    if(matchMedia("(prefers-reduced-motion:reduce)").matches||from===to){drawBell(to);return;}
+    (function step(now){var k=Math.min(1,(now-s0)/900),e=1-Math.pow(1-k,3);drawBell(from+(to-from)*e);if(k<1)bellRaf=requestAnimationFrame(step);})(s0);
+  }
+  var SG='<span class="sg">\u03c3</span>';
+  function tierLabel(t){return (t+1)+SG+" \u00b7 "+TIERS[t].n;}
   function pips(){var h="";for(var i=0;i<7;i++){var r=S.res[i];h+='<span class="pip '+(r?(r.t<0?"px":"p"+r.t):(i===S.i?"now":""))+'"></span>';}return '<span class="pips" aria-hidden="true">'+h+'</span>';}
-  function stamp(t){return '<div class="stamp '+(t<0?"cx":"c"+t)+'"><span>'+(t<0?NO_RANK:TIERS[t].n)+'</span><small>'+(t<0?"No points this round":TIERS[t].g)+'</small></div>';}
+  function stamp(t,none){return '<div class="stamp '+(t<0?"cx":"c"+t)+'"><span>'+(t<0?NO_RANK:TIERS[t].n)+'</span><small>'+(t<0?(none||"No points this round"):(t+1)+SG+" \u00b7 "+TIERS[t].g)+'</small></div>';}
   var ICON={w:'<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="8" width="24" height="14" rx="3"/><path d="M8 15h7M19 12v6"/></svg>',s:'<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 15h24"/><circle cx="19" cy="15" r="4.5" fill="currentColor"/></svg>',p:'<svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="15" cy="15" r="8"/><path d="M15 3v7M15 20v7M3 15h7M20 15h7"/></svg>'};
-  function chip(t){return t<0?'<span class="chip cx">'+NO_RANK+'</span>':'<span class="chip c'+t+'">'+TIERS[t].n+'</span>';}
+  function chip(t){return t<0?'<span class="chip cx">'+NO_RANK+'</span>':'<span class="chip c'+t+'">'+tierLabel(t)+'</span>';}
   function hud(){return '<div class="hud"><span>'+(S.mode==="daily"?"Daily #"+dayNo():"Unlimited")+(S.disc?" \u00b7 "+discName():"")+' \u00b7 Round <b>'+Math.min(7,S.i+1)+'/7</b></span>'+pips()+'<span>Score <b>'+S.score+'</b></span></div>';}
   function setMode(m){S.mode=m;document.getElementById("mode-daily").setAttribute("aria-pressed",m==="daily");document.getElementById("mode-unlimited").setAttribute("aria-pressed",m==="unlimited");stop();home();}
   function stop(){if(S.tick){clearInterval(S.tick);S.tick=null;}}
@@ -630,22 +707,22 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
   }
 
   function home(){
-    setAlt(0);
-    var best=store("kl-best"),done=store("kl-daily-"+today()+S.disc);
+    setSig(0);
+    var best=store("s6-best"),done=store("s6-daily-"+today()+S.disc);
     var picker=DISC.map(function(d){return '<button type="button" data-d="'+d[0]+'" aria-pressed="'+(d[0]===S.disc)+'">'+d[1]+'</button>';}).join("");
-    var rungs=TIERS.map(function(t,i){return '<div class="rung c'+i+'"><span class="pt">'+t.p+'</span><span><span class="nm">'+t.n+'</span><br><span class="gag">'+t.g+'</span></span><span class="how">'+BLURB[i]+'</span></div>';}).reverse().join("");
-    card.innerHTML='<div><div class="cat">'+(S.mode==="daily"?"Daily ascent #"+dayNo():"Unlimited mode")+'</div><h2>Seven rounds. 25 seconds each. 700 points puts you in space.</h2></div>'+
+    var rungs=TIERS.map(function(t,i){return '<div class="rung c'+i+'"><span class="pt">'+(i+1)+'\u03c3</span><span><span class="nm">'+t.n+'</span><br><span class="gag">'+t.p+' pts \u00b7 '+t.g+'</span></span><span class="how">'+BLURB[i]+'</span></div>';}).reverse().join("");
+    card.innerHTML='<div><div class="cat">'+(S.mode==="daily"?"Daily run #"+dayNo():"Unlimited mode")+'</div><h2>Seven rounds. 25 seconds each. 700 points puts you at six sigma.</h2></div>'+
       '<div><div class="cat" style="color:var(--muted);margin-bottom:8px">Discipline focus</div><div class="discs" role="group" aria-label="Discipline focus">'+picker+'</div></div>'+
       '<div class="kinds"><div class="kind">'+ICON.w+'<div><b>Word rounds</b><br><span>Dozens of right answers. The rare ones pay more.</span></div></div><div class="kind">'+ICON.s+'<div><b>Slider rounds</b><br><span>Estimate a real quantity. Closer pays more.</span></div></div><div class="kind">'+ICON.p+'<div><b>Pointer rounds</b><br><span>Tap the right spot on a diagram.</span></div></div></div>'+
-      '<div class="row"><button class="pri" id="go" type="button">Start '+(S.mode==="daily"?"today's ascent":"a round")+'</button>'+
-      '<span class="ex">'+(S.mode==="daily"&&done!=null?"Today's score: <b>"+done+"</b>. ":"")+(best!=null?"Personal best: <b>"+best+"</b> ("+km(best)+" km)":(S.mode==="daily"?"Same seven rounds for everyone today"+(S.disc?" in "+discName().toLowerCase():"")+".":"Fresh rounds every time."))+'</span></div>'+
-      '<div><div class="cat" style="color:var(--muted);margin-bottom:8px">Ranks you can earn each round</div><div class="ladder">'+rungs+'</div></div>';
+      '<div class="row"><button class="pri" id="go" type="button">Start '+(S.mode==="daily"?"today's run":"a round")+'</button>'+
+      '<span class="ex">'+(S.mode==="daily"&&done!=null?"Today's score: <b>"+done+"</b>. ":"")+(best!=null?"Personal best: <b>"+best+"</b> ("+sig(best)+"\u03c3)":(S.mode==="daily"?"Same seven rounds for everyone today"+(S.disc?" in "+discName().toLowerCase():"")+".":"Fresh rounds every time."))+'</span></div>'+
+      '<div><div class="cat" style="color:var(--muted);margin-bottom:8px">Six ranks you can earn each round</div><div class="ladder">'+rungs+'</div></div>';
     document.getElementById("go").onclick=begin;
-    Array.prototype.forEach.call(card.querySelectorAll(".discs button"),function(b){b.onclick=function(){S.disc=b.dataset.d;store("kl-disc",S.disc);home();var n=card.querySelector('.discs button[aria-pressed="true"]');if(n)n.focus({preventScroll:true});};});
+    Array.prototype.forEach.call(card.querySelectorAll(".discs button"),function(b){b.onclick=function(){S.disc=b.dataset.d;store("s6-disc",S.disc);home();var n=card.querySelector('.discs button[aria-pressed="true"]');if(n)n.focus({preventScroll:true});};});
   }
   function begin(){
     var rand=S.mode==="daily"?rng(hash("kl3"+today()+S.disc)):rng((Date.now()^(Math.random()*1e9))|0);
-    S.order=pickRound(rand,S.disc);S.i=0;S.score=0;S.res=[];setAlt(0);ask();
+    S.order=pickRound(rand,S.disc);S.i=0;S.score=0;S.res=[];setSig(0);ask();
   }
   function ask(){var it=S.order[S.i];if(it.k==="w")askWord(PROMPTS[it.i]);else if(it.k==="s")askSlider(SLIDERS[it.i]);else askPointer(POINTERS[it.i]);}
 
@@ -666,8 +743,8 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
   }
   function sample(list,n,not){var l=list.filter(function(s){return s.split("|")[0]!==not;}).map(function(s){return s.split("|")[0];});for(var i=l.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=l[i];l[i]=l[j];l[j]=x;}return l.slice(0,n);}
   function wordDone(p,m,why){
-    var t=m?m.t:-1,rare=sample(p.a[4],3,m&&m.d),deep=sample(p.a[3],2,m&&m.d),common=p.a[0].map(function(s){return s.split("|")[0];});
-    finish(p,t,m?m.d:why,'<p class="ex">'+(t===4?"Other answers at this rank: ":"Rarer answers on the board: ")+'<b>'+esc(rare.concat(t>=3?[]:deep).join(", "))+'</b>.</p><p class="ex">Most common answers: <b>'+esc(common.join(", "))+'</b>.</p>');
+    var t=m?m.t:-1,rare=sample(p.a[5],3,m&&m.d),deep=sample(p.a[4],2,m&&m.d),common=p.a[0].map(function(s){return s.split("|")[0];});
+    finish(p,t,m?m.d:why,'<p class="ex">'+(t===5?"Other answers at this rank: ":"Rarer answers on the board: ")+'<b>'+esc(rare.concat(t>=4?[]:deep).join(", "))+'</b>.</p><p class="ex">Most common answers: <b>'+esc(common.join(", "))+'</b>.</p>');
   }
 
   /* slider round */
@@ -715,7 +792,7 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
     function reveal(p){
       var sc=p?pointerScore(q,p[0],p[1]):{t:-1,target:q.t[0]},T=sc.target;
       var pins=(p?'<path class="dash" d="M'+p[0]+','+p[1]+' L'+T[0].toFixed(0)+','+T[1].toFixed(0)+'"/>'+pinMe(p[0],p[1]):"")+'<circle class="pin-t" cx="'+T[0].toFixed(0)+'" cy="'+T[1].toFixed(0)+'" r="11"/><circle class="pin-td" cx="'+T[0].toFixed(0)+'" cy="'+T[1].toFixed(0)+'" r="3"/>';
-      var word=p?["Wide of the mark","In the neighbourhood","Close","Very close","Dead on"][sc.t]||"Missed":"No pointer placed";
+      var word=p?["Wide of the mark","In the neighbourhood","Close","Very close","Dead on","Dead centre"][sc.t]||"Missed":"No pointer placed";
       finish(q,sc.t,word,svg(q,pins,false)+'<p class="ex">The ring marks the answer. '+esc(q.n)+'</p>');
     }
     lock.onclick=done;
@@ -726,7 +803,7 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
   function finish(q,t,label,body){
     stop();
     var pts=t<0?0:TIERS[t].p,last=S.i===6;
-    S.score+=pts;S.res.push({q:q.q,d:label,t:t,pts:pts});setAlt(S.score);
+    S.score+=pts;S.res.push({q:q.q,d:label,t:t,pts:pts});setSig(S.score);
     card.innerHTML=hud()+'<div><div class="cat">'+esc(q.c)+'</div><h3>'+esc(q.q)+'</h3></div>'+
       '<div class="verdict">'+stamp(t)+'<div><div class="big">+<span id="pts">'+pts+'</span><small>pts</small></div><p class="yours" style="margin-top:8px">'+esc(label)+'</p></div></div>'+body+
       '<div class="spacer"></div><div class="row"><button class="pri" id="next" type="button">'+(last?"See result":"Next round")+'</button></div>';
@@ -735,16 +812,16 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
     b.onclick=function(){if(last)end();else{S.i++;ask();}};
   }
   function end(){
-    var best=store("kl-best");if(best==null||S.score>best)store("kl-best",S.score);
-    if(S.mode==="daily"){var d=store("kl-daily-"+today()+S.disc);if(d==null)store("kl-daily-"+today()+S.disc,S.score);}
-    var a=S.score/7,rank=a>=92?4:a>=72?3:a>=45?2:a>=20?1:a>=5?0:-1;
-    var verdict=a>=100?"You crossed the Kármán line. Technically an astronaut.":a>=85?"Thermosphere. You can see the line from here.":a>=50?"Mesosphere. Higher than any balloon has flown.":a>=12?"Stratosphere. Cruising above the airliners.":"Troposphere. Still in the weather.";
+    var best=store("s6-best");if(best==null||S.score>best)store("s6-best",S.score);
+    if(S.mode==="daily"){var d=store("s6-daily-"+today()+S.disc);if(d==null)store("s6-daily-"+today()+S.disc,S.score);}
+    var sg=sigmaOf(S.score),rank=Math.floor(sg+1e-9)-1;
+    var verdict=["Right on the mean. Perfectly average.","One sigma out. Just clear of the mean.","Two sigma out. Ahead of most of the curve.","Three sigma out. Beyond the control limits.","Four sigma out. Well into the tail.","Five sigma out. Physicists would call that a discovery.","Six sigma. A perfect run, with zero defects."][rank+1];
     var rows=S.res.map(function(r){return "<tr><td class=\"q\">"+esc(r.q.replace(/^Name (an?|the) /,"").replace(/^(Estimate|Point to) (the )?/,""))+"</td><td><b>"+esc(r.d)+"</b></td><td>"+chip(r.t)+'</td><td class="n">'+r.pts+"</td></tr>";}).join("");
-    var glyph=["▁","▃","▅","▇","█"];
-    var share="Kármán Line "+(S.mode==="daily"?"#"+dayNo():"(unlimited)")+(S.disc?" \u00b7 "+discName():"")+"\n"+S.score+" pts · "+km(S.score)+" km · "+(rank<0?NO_RANK:TIERS[rank].n)+"\n"+S.res.map(function(r){return r.t<0?"×":glyph[r.t];}).join(" ");
+    var glyph=["▁","▂","▄","▅","▇","█"];
+    var share="SigmaSix "+(S.mode==="daily"?"#"+dayNo():"(unlimited)")+(S.disc?" \u00b7 "+discName():"")+"\n"+S.score+" pts · "+sig(S.score)+"\u03c3 · "+(rank<0?NO_RANK:TIERS[rank].n)+"\n"+S.res.map(function(r){return r.t<0?"×":glyph[r.t];}).join(" ");
     S.i=7;
     card.innerHTML=hud()+'<div class="cat">'+(S.mode==="daily"?"Daily #"+dayNo()+" complete":"Round complete")+'</div>'+
-      '<div class="verdict"><div><div class="big">'+km(S.score)+'<small>km</small></div><p class="ex" style="margin-top:8px">'+S.score+' of 700 points. '+verdict+'</p></div>'+stamp(rank)+'</div>'+
+      '<div class="verdict"><div><div class="big">'+sig(S.score)+'<small style="font:500 34px var(--display)">\u03c3</small></div><p class="ex" style="margin-top:8px">'+S.score+' of 700 points. '+verdict+'</p></div>'+stamp(rank,"Under one sigma")+'</div>'+
       '<div style="overflow-x:auto"><table><thead><tr><th class="q">Round</th><th>Your answer</th><th>Rank</th><th class="n">Pts</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
       '<div class="row"><button class="pri" id="again" type="button">Play an unlimited round</button><button class="sec" id="copy" type="button">Copy result</button><span class="msg" id="copied" role="status" style="min-height:0"></span></div><div id="sharebox"></div>';
     document.getElementById("again").onclick=function(){S.mode="unlimited";document.getElementById("mode-daily").setAttribute("aria-pressed","false");document.getElementById("mode-unlimited").setAttribute("aria-pressed","true");begin();};
@@ -754,11 +831,9 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
       try{navigator.clipboard.writeText(share).then(ok,fail);}catch(e){fail();}
     };
   }
-  function stars(){var c=document.getElementById("stars"),w=c.width=innerWidth,h=c.height=innerHeight,x=c.getContext("2d"),r=rng(7);for(var i=0;i<Math.round(w*h/5500);i++){x.globalAlpha=.25+r()*.75;x.fillStyle="#fff";var s=r()<.08?1.8:r()*1.1+.3;x.beginPath();x.arc(r()*w,r()*h,s,0,7);x.fill();}}
-  stars();addEventListener("resize",stars);
   document.getElementById("mode-daily").onclick=function(){setMode("daily");};
   document.getElementById("mode-unlimited").onclick=function(){setMode("unlimited");};
-  var sd=store("kl-disc");if(typeof sd==="string"&&DISC.some(function(d){return d[0]===sd;}))S.disc=sd;
+  var sd=store("s6-disc");if(typeof sd==="string"&&DISC.some(function(d){return d[0]===sd;}))S.disc=sd;
   home();
 })();
 </script>
