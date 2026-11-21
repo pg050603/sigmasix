@@ -56,6 +56,18 @@ main{display:flex;flex-direction:column;gap:18px}
 .tk{position:absolute;top:100%;margin-top:6px;transform:translateX(-50%);font:500 12px var(--mono);color:var(--muted);opacity:.6;white-space:nowrap;transition:opacity .5s,color .5s}
 .tk.lit{opacity:1;color:var(--ink);font-weight:600}
 .tk.goal{color:var(--accent);opacity:1;font-weight:600}
+.hd-r{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+button.acct{font:600 13px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:9px 16px;background:var(--surface)}
+/* account dialog */
+dialog{width:min(420px,calc(100vw - 28px));padding:0;border:1.5px solid var(--ink);border-radius:3px;background:var(--surface);color:var(--ink)}
+dialog::backdrop{background:rgba(27,37,48,.45)}
+.dlg{display:flex;flex-direction:column;gap:14px;padding:22px}
+.dlg h2{font-size:30px;margin:0}
+.dlg label{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.dlg input{font:500 17px var(--body);padding:11px 12px;border:1.5px solid var(--ink);border-radius:3px;background:#fff;color:var(--ink)}
+.dlg input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,158,.2)}
+.dlg dl{display:grid;grid-template-columns:1fr auto;gap:6px 16px;margin:0;border-top:1.5px solid var(--ink);padding-top:12px}
+.dlg dt{color:var(--muted)}.dlg dd{margin:0;font:600 15px var(--mono);text-align:right}
 /* card */
 .card{background:var(--surface);border:1.5px solid var(--ink);border-radius:3px;padding:26px;min-height:500px;display:flex;flex-direction:column;gap:18px}
 .hud{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 18px;margin:-26px -26px 0;padding:11px 26px;border-bottom:1.5px solid var(--ink);background:rgba(27,37,48,.045);font:500 12px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
@@ -190,9 +202,12 @@ footer{color:var(--muted);font-size:12px;max-width:74ch}
       <h1>Sigma<span>Six</span></h1>
       <p class="tag">Trivia for engineers. Get six sigma from the mean.</p>
     </div>
-    <div class="modes" role="group" aria-label="Game mode">
-      <button type="button" id="mode-daily" aria-pressed="true">Daily</button>
-      <button type="button" id="mode-unlimited" aria-pressed="false">Unlimited</button>
+    <div class="hd-r">
+      <div class="modes" role="group" aria-label="Game mode">
+        <button type="button" id="mode-daily" aria-pressed="true">Daily</button>
+        <button type="button" id="mode-unlimited" aria-pressed="false">Unlimited</button>
+      </div>
+      <button type="button" class="sec acct" id="acct" hidden>Sign in</button>
     </div>
   </header>
   <main id="main">
@@ -216,6 +231,8 @@ footer{color:var(--muted);font-size:12px;max-width:74ch}
   <footer>Word-round ranks are curated estimates of how often engineers would give each answer. They are not live player data. Diagrams are schematic. This is an independent fan project inspired by rare-answer trivia games and is not affiliated with Krillion.</footer>
 </div>
 
+<dialog id="acct-dlg" aria-labelledby="acct-title"></dialog>
+<script src="config.js"></script>
 <script id="core">
 /* Six ranks, one per sigma. TIERS[i] is the rank for (i+1)σ. */
 var TIERS=[
@@ -856,6 +873,7 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
   }
   function end(){
     var best=store("s6-best");if(best==null||S.score>best)store("s6-best",S.score);
+    saveScore();
     if(S.mode==="daily"){var d=store("s6-daily-"+today()+S.disc);if(d==null)store("s6-daily-"+today()+S.disc,S.score);}
     var sg=sigmaOf(S.score),rank=Math.floor(sg+1e-9)-1;
     var verdict=["Right on the mean. Perfectly average.","One sigma out. Just clear of the mean.","Two sigma out. Ahead of most of the curve.","Three sigma out. Beyond the control limits.","Four sigma out. Well into the tail.","Five sigma out. Physicists would call that a discovery.","Six sigma. A perfect run, with zero defects."][rank+1];
@@ -873,6 +891,50 @@ if(typeof module!=="undefined"){module.exports={get PROMPTS(){return PROMPTS;},g
       var fail=function(){document.getElementById("sharebox").innerHTML='<textarea id="sharetext" rows="3" readonly aria-label="Result to copy"></textarea>';var ta=document.getElementById("sharetext");ta.value=share;ta.select();};
       try{navigator.clipboard.writeText(share).then(ok,fail);}catch(e){fail();}
     };
+  }
+  /* Accounts are optional: they switch on only when config.js holds the Supabase project details. */
+  var CFG=window.S6_CONFIG||{},sb=null,user=null,dlg=document.getElementById("acct-dlg"),acct=document.getElementById("acct");
+  function acctBtn(){acct.hidden=!sb;acct.textContent=user?"Account":"Sign in";}
+  function saveScore(){
+    if(!sb||!user)return;
+    sb.from("scores").insert({user_id:user.id,mode:S.mode,discipline:S.disc||"all",day:today(),score:S.score,sigma:+sig(S.score),rounds:S.res.map(function(r){return{q:r.q,a:r.d,t:r.t,p:r.pts};})})
+      .then(function(r){if(r.error)console.warn("Score not saved: "+r.error.message);});
+  }
+  function acctView(){
+    if(!user){
+      dlg.innerHTML='<form class="dlg" id="acct-f"><h2 id="acct-title">Sign in</h2><p class="ex">Enter your email and we will send you a sign-in link. No password needed. New here? The same link creates your account.</p>'+
+        '<label>Email<input type="email" id="acct-email" required autocomplete="email" placeholder="you@example.com"></label>'+
+        '<p class="msg" id="acct-msg" role="status" style="min-height:0"></p>'+
+        '<div class="row"><button class="pri" type="submit" id="acct-send">Email me a link</button><button class="sec" type="button" id="acct-close">Close</button></div></form>';
+      document.getElementById("acct-f").addEventListener("submit",function(e){
+        e.preventDefault();var btn=document.getElementById("acct-send"),msg=document.getElementById("acct-msg"),email=document.getElementById("acct-email").value.trim();
+        btn.disabled=true;msg.textContent="Sending...";
+        sb.auth.signInWithOtp({email:email,options:{emailRedirectTo:location.origin+location.pathname}}).then(function(r){
+          btn.disabled=false;msg.textContent=r.error?"Could not send the link: "+r.error.message:"Check your inbox for a sign-in link.";
+        });
+      });
+    }else{
+      dlg.innerHTML='<div class="dlg"><h2 id="acct-title">Your account</h2><p class="ex">Signed in as <b>'+esc(user.email||"")+'</b>. Finished games are saved to your account.</p>'+
+        '<dl><dt>Games saved</dt><dd id="acct-n">...</dd><dt>Best score</dt><dd id="acct-best">...</dd></dl>'+
+        '<div class="row"><button class="sec" type="button" id="acct-out">Sign out</button><button class="pri" type="button" id="acct-close">Close</button></div></div>';
+      sb.from("scores").select("score",{count:"exact"}).order("score",{ascending:false}).limit(1).then(function(r){
+        var n=document.getElementById("acct-n"),b=document.getElementById("acct-best");if(!n)return;
+        if(r.error){n.textContent=b.textContent="unavailable";return;}
+        n.textContent=r.count||0;b.textContent=r.data.length?r.data[0].score+" ("+sig(r.data[0].score)+"\u03c3)":"none yet";
+      });
+      document.getElementById("acct-out").onclick=function(){sb.auth.signOut().then(function(){dlg.close();});};
+    }
+    document.getElementById("acct-close").onclick=function(){dlg.close();};
+  }
+  acct.onclick=function(){acctView();dlg.showModal();};
+  if(CFG.supabaseUrl&&CFG.supabaseKey){
+    var sc=document.createElement("script");sc.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js";
+    sc.onload=function(){
+      sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey);
+      sb.auth.onAuthStateChange(function(ev,session){user=session?session.user:null;acctBtn();if(dlg.open)acctView();});
+      acctBtn();
+    };
+    document.head.appendChild(sc);
   }
   document.getElementById("mode-daily").onclick=function(){setMode("daily");};
   document.getElementById("mode-unlimited").onclick=function(){setMode("unlimited");};
