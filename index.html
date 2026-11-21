@@ -231,13 +231,13 @@ var PROMPTS=[
 ["Pulsejet","Propfan|open rotor|unducted fan","Hall-effect|Hall","Aerospike","Nuclear thermal rocket|nuclear thermal|NTR","Motorjet","Geared turbofan","Afterburning turbofan","Inline","Flat|boxer|horizontally opposed"],
 ["Rotating detonation|RDE","Pulse detonation|PDE","Resistojet","Arcjet","Precooled|SABRE","Turbo-compound|turbocompound","Turboramjet","VASIMR"],
 ["Air turborocket|turborocket","Magnetoplasmadynamic|MPD","Colloid|electrospray"]]},
-{c:"Materials and inspection",q:"Name a non-destructive testing method",s:"testing test inspection method",a:[
-["Ultrasonic|ultrasound|UT","Radiographic|X-ray|radiography|xray|RT","Visual|VT"],
-["Dye penetrant|liquid penetrant|penetrant|PT|dye","Magnetic particle|MPI|MT"],
-["Eddy current|ET","Thermography|infrared thermography|thermal imaging|infrared","Acoustic emission|AE"],
-["Tap|coin tap","Leak|helium leak|pressure","Computed tomography|CT|CT scan","Phased array ultrasonic|phased array|PAUT","Shearography","Magnetic flux leakage|MFL","Hardness","Borescope|endoscope"],
-["Time-of-flight diffraction|TOFD","Guided wave","Neutron radiography|neutron imaging","Holographic interferometry|holography","Laser ultrasonic","Terahertz"],
-["Barkhausen noise|Barkhausen","Alternating current field measurement|ACFM","Remote field|RFT"]]},
+{c:"Statistics",q:"Name a probability distribution",s:"distribution distributions",a:[
+["Normal|Gaussian|bell curve|Gauss|standard normal","Uniform|rectangular|continuous uniform|discrete uniform","Binomial"],
+["Poisson","Exponential","Student's t|t|Student t|Student","Chi-squared|chi squared|chi square|chi2"],
+["Bernoulli","Geometric","Weibull","Lognormal|log-normal","F|Fisher|Fisher-Snedecor|Snedecor","Gamma","Beta"],
+["Rayleigh","Hypergeometric","Negative binomial|Pascal","Cauchy|Lorentz|Lorentzian|Cauchy-Lorentz","Pareto","Multinomial","Triangular","Maxwell-Boltzmann|Maxwell|Maxwellian","Multivariate normal|bivariate normal|multivariate Gaussian|joint normal"],
+["Gumbel|extreme value|type I extreme value","Laplace|double exponential","Erlang","Logistic","Rice|Rician","Dirichlet","Boltzmann|Gibbs","Fermi-Dirac","Bose-Einstein","Inverse Gaussian|Wald","Zipf|zeta","Beta-binomial"],
+["Lévy|Levy","Nakagami","Fréchet|Frechet","Gompertz","Wishart","von Mises|circular normal","Skellam","Kumaraswamy","Dagum","Burr","Landau","Tukey lambda|Tukey","Irwin-Hall","Voigt"]]},
 {c:"Structures and materials",q:"Name a failure mode of a material or structure",s:"failure",a:[
 ["Fatigue","Fracture|cracking|crack","Corrosion|rust"],
 ["Buckling","Creep","Yielding|yield|plastic deformation","Wear|abrasion"],
@@ -259,13 +259,13 @@ var PROMPTS=[
 ["Ericsson","Miller","Dual|Sabathé|Seiliger|mixed|limited pressure","Kalina","Organic Rankine|ORC","Humphrey","Lenoir","Absorption refrigeration|absorption","Reverse Brayton|Bell Coleman|air refrigeration"],
 ["Siemens","Linde-Hampson|Linde|Hampson-Linde","Claude","Gifford-McMahon|GM","Allam|Allam-Fetvedt","Cheng","Regenerative Rankine","Reverse Carnot"],
 ["Vuilleumier","Stoddard","Scuderi","Kleemenko"]]},
-{c:"Civil",q:"Name a type of bridge",s:"bridge",a:[
-["Suspension","Arch","Beam|girder"],
-["Truss","Cable-stayed|cable stay","Cantilever","Drawbridge|draw"],
-["Bascule","Pontoon|floating","Swing","Viaduct","Box girder","Covered","Footbridge|pedestrian"],
-["Tied-arch|bowstring|tied arch","Vertical lift|lift","Extradosed","Clapper","Trestle","Transporter","Simple suspension|rope","Moon","Plate girder","Aqueduct","Log"],
-["Vierendeel","Bailey","Tilt","Folding","Retractable","Network arch","Submersible","Self-anchored suspension","Integral"],
-["Stressed ribbon","Lenticular truss|lenticular","Burr arch|Burr"]]},
+{c:"Structural analysis",q:"Name a method used to analyse beams, trusses or frames",s:"method methods theorem analysis principle",a:[
+["Method of joints|joints|joint resolution","Method of sections|sections","Free body diagram|FBD|free body"],
+["Finite element|FEM|FEA|finite elements","Superposition","Virtual work|principle of virtual work","Shear force and bending moment diagrams|bending moment diagram|shear force diagram|SFD|BMD|shear and moment diagrams"],
+["Moment distribution|Hardy Cross","Macaulay|Macaulay's|singularity functions|discontinuity functions","Double integration|direct integration","Castigliano|Castigliano's","Stiffness|direct stiffness|matrix stiffness|displacement","Moment-area|moment area|Mohr's theorems"],
+["Slope-deflection|slope deflection","Unit load|dummy load","Flexibility|force|compatibility","Conjugate beam","Influence lines|influence line","Three-moment|Clapeyron|three moment equation","Plastic|plastic hinge|limit","Strain energy|energy"],
+["Müller-Breslau|Muller Breslau","Portal","Cantilever","Rayleigh-Ritz|Ritz","Graphic statics|Cremona diagram|Maxwell diagram|Cremona|graphical","Tension coefficient|tension coefficients","Yield line","Maxwell-Betti|Betti|reciprocal|Maxwell's reciprocal"],
+["Kani|Kani's|rotation contribution","Column analogy","Strut-and-tie|strut and tie","Henneberg|member substitution","Williot-Mohr|Williot diagram|Williot"]]},
 {c:"Machine design",q:"Name a type of gear",s:"gear gears",a:[
 ["Spur","Bevel","Worm"],
 ["Helical","Rack and pinion|rack|pinion","Planetary|epicyclic|sun|planet"],
@@ -350,13 +350,13 @@ var PROMPTS=[
 ["Heat pipe","Printed circuit|PCHE","Rotary wheel|thermal wheel|Ljungström|rotary|heat wheel","Scraped surface","Plate and shell","Helical coil|coil","Kettle reboiler|reboiler","Microchannel","Brazed plate","Feedwater heater"],
 ["Run-around coil|runaround coil","Hairpin","Direct contact","Precooler","U-tube","Fluidised bed|fluidized bed","Pebble bed"],
 ["Pillow plate","Bayonet","Lamella"]]},
-{c:"Fluid systems",q:"Name a type of valve",s:"valve valves",a:[
-["Ball","Gate","Check|non-return|one way|nonreturn"],
-["Butterfly","Globe","Needle","Relief|safety|pressure relief","Solenoid"],
-["Diaphragm","Plug","Poppet","Pinch","Spool","Throttle","Pressure reducing|pressure regulator|regulator|reducing","Control"],
-["Reed","Sleeve","Knife gate|knife","Angle","Schrader","Presta","Foot","Float|ballcock","Rotary","Servo","Bleed","Three-way|3 way","Stop|stopcock|shut off|isolation"],
-["Tesla|valvular conduit","Duckbill","Shuttle","Flapper","Pilot operated|pilot","Thermostatic expansion|TXV|expansion","Blowoff|blow off|dump","Burst disc|rupture disc","Cartridge"],
-["Desmodromic","Dunlop|Woods","Pyrotechnic|pyro|squib"]]},
+{c:"Thermodynamics",q:"Name a thermodynamic property of a substance or system",s:"",a:[
+["Temperature","Pressure","Volume"],
+["Enthalpy|specific enthalpy","Entropy|specific entropy","Internal energy|specific internal energy","Density","Mass"],
+["Specific volume","Specific heat|heat capacity|specific heat capacity","Gibbs free energy|Gibbs energy|Gibbs|Gibbs function|free energy","Quality|dryness fraction|vapour quality|vapor quality","Saturation temperature|boiling point","Vapour pressure|vapor pressure|saturation pressure"],
+["Helmholtz free energy|Helmholtz energy|Helmholtz|Helmholtz function","Exergy|availability","Compressibility factor|Z|compressibility","Specific heat ratio|ratio of specific heats|gamma|heat capacity ratio|adiabatic index|isentropic exponent","Chemical potential","Thermal conductivity","Viscosity|dynamic viscosity","Latent heat|enthalpy of vaporisation|enthalpy of vaporization|heat of vaporisation|heat of vaporization"],
+["Fugacity","Joule-Thomson coefficient|Joule Thomson|Joule-Kelvin coefficient","Isothermal compressibility","Thermal expansion coefficient|volume expansivity|coefficient of thermal expansion|expansivity|volumetric expansion coefficient","Critical temperature|critical pressure|critical point","Speed of sound|sonic velocity","Activity","Humidity ratio|specific humidity|relative humidity|humidity"],
+["Acentric factor","Fugacity coefficient","Partial molar volume|partial molar property|partial molar Gibbs energy","Grand potential|Landau potential","Isentropic compressibility|adiabatic compressibility","Bulk modulus","Residual enthalpy|departure function|enthalpy departure"]]},
 {c:"Computation",q:"Name a numerical method used in engineering analysis",s:"method methods rule scheme analysis",a:[
 ["Finite element|FEM|FEA","Newton-Raphson|Newton|Newtons","Euler|forward Euler|explicit Euler"],
 ["Runge-Kutta|RK4","Finite difference|FDM","Finite volume|FVM","Monte Carlo","Gaussian elimination|Gauss elimination","Simpson's|Simpsons|Simpson","Trapezoidal|trapezium|trapezoid","Bisection"],
@@ -364,13 +364,13 @@ var PROMPTS=[
 ["Galerkin","Spectral|pseudospectral","Lattice Boltzmann|LBM","Smoothed particle hydrodynamics|SPH","Newmark-beta|Newmark","Multigrid","Successive over-relaxation|SOR","Adams-Bashforth","Discrete element|DEM","Gaussian quadrature|Gauss quadrature","Method of characteristics|characteristics","Blade element momentum|blade element","Cholesky decomposition|Cholesky"],
 ["Lax-Wendroff","Verlet|velocity Verlet|leapfrog","Rayleigh-Ritz|Ritz","GMRES","MacCormack","Discontinuous Galerkin","Adams-Moulton","Thomas algorithm|tridiagonal matrix algorithm|TDMA","Direct simulation Monte Carlo|DSMC"],
 ["Material point|MPM","Arc-length|Riks","Hardy Cross|moment distribution","Doublet lattice"]]},
-{c:"Civil",q:"Name a type of dam",s:"dam dams",a:[
-["Arch","Gravity","Embankment|earth|earthfill|earth fill|earthen"],
-["Rockfill|rock fill","Buttress","Hydroelectric|hydro","Weir"],
-["Arch-gravity|arch gravity","Cofferdam|coffer","Barrage","Tailings","Check","Concrete-face rockfill|CFRD|concrete faced rockfill","Concrete"],
-["Multiple arch","Roller-compacted concrete|RCC|roller compacted","Saddle","Diversion","Detention|flood control","Steel","Double curvature arch|dome","Masonry","Storage"],
-["Inflatable|rubber","Underground|subsurface|groundwater","Sand","Hollow gravity","Beaver","Debris|sabo"],
-["Timber crib|timber|crib","Ambursen|flat slab buttress","Ice"]]},
+{c:"Geotechnical",q:"Name a property of soil measured or used in geotechnical engineering",s:"soil",a:[
+["Moisture content|water content|moisture","Density|bulk density|dry density","Permeability|hydraulic conductivity"],
+["Shear strength","Cohesion","Friction angle|angle of friction|angle of internal friction|internal friction angle|angle of shearing resistance","Void ratio","Porosity","Unit weight|bulk unit weight|dry unit weight"],
+["Liquid limit","Plastic limit","Plasticity index","Degree of saturation|saturation","Specific gravity","Bearing capacity","Particle size distribution|grading|grain size distribution|particle size|grain size","Optimum moisture content|OMC","Maximum dry density|MDD"],
+["Compression index","Coefficient of consolidation","Overconsolidation ratio|OCR","Relative density|density index","Undrained shear strength","Shrinkage limit","California bearing ratio|CBR","Effective stress","Pore water pressure|pore pressure","SPT N value|N value|blow count|SPT"],
+["Coefficient of uniformity","Coefficient of curvature","Liquidity index","Preconsolidation pressure|preconsolidation stress","Coefficient of volume compressibility","Sensitivity","Activity","Dilatancy angle|dilation angle|angle of dilation","Swelling index|recompression index","Coefficient of earth pressure at rest|K0|earth pressure coefficient"],
+["Secondary compression index|coefficient of secondary compression|creep index","Thixotropy","Critical void ratio","Air content|air voids","Suction|matric suction","Constrained modulus|oedometer modulus"]]},
 {c:"Propulsion",q:"Name a part of a jet engine",s:"",a:[
 ["Compressor","Turbine","Combustor|combustion chamber|burner|combustion","Fan"],
 ["Nozzle|exhaust nozzle|propelling nozzle|exhaust","Afterburner|reheat","Inlet|intake|air intake","Blade|fan blade|turbine blade|compressor blade","Shaft|spool"],
@@ -385,13 +385,13 @@ var PROMPTS=[
 ["Switched reluctance|SRM","Hub|in-wheel","Coreless|ironless","Wound rotor|slip ring","Axial flux|pancake","Series wound|series","Shunt wound|shunt","Hysteresis","Reluctance|synchronous reluctance","Capacitor start|capacitor run","Compound wound|compound","Outrunner","Gearmotor|geared"],
 ["Piezoelectric|ultrasonic|piezo","Homopolar|Faraday","Electrostatic","Torque","Voice coil","Vernier","Doubly fed|DFIG","Split phase"],
 ["Repulsion","Ball bearing","Printed armature","Transverse flux"]]},
-{c:"Software",q:"Name a CAD or engineering simulation software package",s:"",a:[
-["SolidWorks","AutoCAD","MATLAB","ANSYS"],
-["CATIA","Fusion 360|Fusion|Autodesk Fusion","Simulink","Inventor|Autodesk Inventor","Revit","Fluent|ANSYS Fluent","Excel"],
-["Abaqus","NX|Siemens NX|Unigraphics","Creo|Pro/Engineer|ProE|Pro Engineer","COMSOL|COMSOL Multiphysics","OpenFOAM","Onshape","FreeCAD","LabVIEW","Nastran|MSC Nastran","Rhino|Rhinoceros","SketchUp","Python","Blender"],
-["STAR-CCM+|STAR CCM|StarCCM","LS-DYNA|LSDYNA","XFOIL","HyperMesh|HyperWorks","Solid Edge","Patran","ParaView","KiCad","SPICE|LTspice|PSpice","Aspen|HYSYS|Aspen Plus|Aspen HYSYS","Altium|Altium Designer","Tekla","ETABS","SAP2000","CFX|ANSYS CFX","Civil 3D","Strand7","Space Gass","Mathcad","Octave|GNU Octave"],
-["OpenVSP|VSP","AVL","SU2","CalculiX","Adams|MSC Adams","Tecplot","GMAT","STK|Systems Tool Kit","Gmsh","Salome","XFLR5","OpenRocket","Modelica|OpenModelica|Dymola","Cantera"],
-["Code_Aster|Code Aster","Elmer","DATCOM","FlightStream","NASTRAN-95","RocketCEA|CEA"]]},
+{c:"Solid mechanics",q:"Name a theory, criterion or law used to predict yielding, fracture or fatigue",s:"theory criterion criteria law rule relation equation line failure",a:[
+["von Mises|Mises|distortion energy|maximum distortion energy|Huber-Mises|octahedral shear stress","Tresca|maximum shear stress|max shear stress|Guest"],
+["Rankine|maximum principal stress|maximum normal stress|max principal stress|max normal stress","Mohr-Coulomb|Coulomb-Mohr|Mohr Coulomb|Coulomb","Euler buckling|Euler","S-N curve|SN curve|Wöhler curve|Wohler|stress-life"],
+["Goodman|modified Goodman","Miner|Miner's|Palmgren-Miner|linear damage","Paris|Paris-Erdogan","Griffith","Soderberg","Stress intensity factor|fracture toughness|K1c|KIc|linear elastic fracture mechanics|LEFM"],
+["Gerber","Tsai-Wu","Tsai-Hill","Maximum principal strain|St Venant|Saint-Venant|maximum strain|max strain","Basquin","Coffin-Manson|Manson-Coffin","Drucker-Prager","Modified Mohr","Irwin","Larson-Miller"],
+["Hashin","Hill|Hill's anisotropic","Strain energy|Beltrami|Haigh|total strain energy|maximum strain energy","J-integral|J integral|Rice","Hoek-Brown","ASME elliptic|ASME","Johnson|Johnson parabola|J.B. Johnson","Maximum stress","Neuber","Morrow","Smith-Watson-Topper|SWT","Weibull|weakest link"],
+["Puck","Gurson|Gurson-Tvergaard-Needleman|GTN","Christensen","Dang Van","Monkman-Grant","Walker","Forman","Dugdale|strip yield|Dugdale-Barenblatt","Johnson-Cook","Bresler-Pister","Willam-Warnke"]]},
 {c:"Digital logic",q:"Name a logic gate",s:"gate gates logic",a:[
 ["AND","OR","NOT|inverter"],
 ["NAND","NOR","XOR|exclusive or"],
@@ -399,13 +399,13 @@ var PROMPTS=[
 ["Tri-state buffer|tristate|tri state|three state","Majority","Transmission|pass","IMPLY|implication"],
 ["Toffoli|CCNOT","CNOT|controlled NOT","Hadamard","AOI|and-or-invert","SWAP"],
 ["Fredkin|CSWAP","NIMPLY","OAI|or-and-invert"]]},
-{c:"Propulsion",q:"Name a rocket or spacecraft propellant",s:"propellant fuel oxidiser oxidizer",a:[
-["Liquid hydrogen|hydrogen|LH2","Kerosene|RP-1|RP1","Liquid oxygen|oxygen|LOX"],
-["Methane|liquid methane|LNG|methalox|liquid natural gas","Hydrazine","Solid|solid propellant"],
-["UDMH|unsymmetrical dimethylhydrazine","MMH|monomethylhydrazine","Nitrogen tetroxide|NTO|N2O4|dinitrogen tetroxide","APCP|ammonium perchlorate|ammonium perchlorate composite","Hydrogen peroxide|HTP|peroxide","Xenon","Nitrous oxide|N2O","Ethanol|alcohol"],
-["Aerozine 50|Aerozine","HTPB","Nitric acid|RFNA|IRFNA|red fuming nitric acid","Black powder|gunpowder","Krypton","Ammonia","Argon","Paraffin|paraffin wax","Propane","Cold gas|nitrogen","Aluminium|Aluminum|aluminium powder","PBAN","Water","Sugar|rocket candy"],
-["Liquid fluorine|fluorine","Iodine","Hydroxylammonium nitrate|HAN|AF-M315E|ASCENT","LMP-103S|ADN|ammonium dinitramide","Chlorine trifluoride|ClF3","Mixed oxides of nitrogen|MON","JP-10","Lithium","Nitromethane","Furfuryl alcohol"],
-["Pentaborane","Syntin","Tonka","ALICE|aluminium ice","Hydyne"]]}
+{c:"Fluid mechanics",q:"Name a law, equation or theorem used in fluid mechanics",s:"law laws equation equations theorem theorems principle formula relation",a:[
+["Bernoulli|Bernoulli's","Continuity|conservation of mass|mass conservation","Navier-Stokes|Navier Stokes|NS"],
+["Archimedes|Archimedes'|buoyancy","Pascal|Pascal's","Newton's law of viscosity|Newton viscosity|Newtonian viscosity","Euler|Euler's","Conservation of momentum|momentum|linear momentum","Hydrostatic|hydrostatic pressure"],
+["Darcy-Weisbach|Darcy Weisbach","Hagen-Poiseuille|Poiseuille|Hagen Poiseuille","Stokes|Stokes' law|Stokes drag","Torricelli|Torricelli's","Reynolds transport|RTT","Energy|conservation of energy|steady flow energy|SFEE","Ideal gas"],
+["Kutta-Joukowski|Kutta Joukowski|Kutta-Zhukovsky","Colebrook|Colebrook-White","Manning|Manning's","Blasius","Laplace|Laplace's|potential flow","Darcy|Darcy's","Buckingham pi|Buckingham|pi","Rankine-Hugoniot|normal shock relations|Rankine Hugoniot","Isentropic|isentropic flow relations","Young-Laplace|Young Laplace"],
+["Hazen-Williams","Chézy|Chezy","Prandtl-Glauert","Biot-Savart","Kelvin's circulation|Kelvin circulation|Kelvin","Helmholtz|Helmholtz vortex","Prandtl-Meyer","Area-Mach|area Mach number|area rule","von Kármán momentum integral|Karman momentum integral|momentum integral","Haaland","Swamee-Jain","Ergun","Prandtl boundary layer|boundary layer|Prandtl"],
+["Crocco|Crocco's","Kozeny-Carman|Carman-Kozeny","Orr-Sommerfeld","Falkner-Skan","Rayleigh-Plesset","Borda-Carnot","Thwaites|Thwaites'","Weymouth","Bingham","Milne-Thomson circle|circle|Milne-Thomson","Fanno","Taylor-Maccoll"]]}
 ];
 
 function normAns(s,strip){
@@ -452,20 +452,20 @@ var SLIDERS=[
 {c:"Aerodynamics",q:"Estimate the speed of sound in air at sea level and 15 °C",u:"m/s",min:100,max:1000,step:5,ans:340,n:"About 340 m/s in the International Standard Atmosphere."},
 {c:"Materials",q:"Estimate the Young's modulus of structural steel",u:"GPa",min:20,max:500,step:5,ans:200,n:"Most steels sit close to 200 GPa regardless of strength grade."},
 {c:"Materials",q:"Estimate the density of aluminium",u:"kg/m³",min:500,max:12000,step:50,ans:2700,n:"Roughly a third of the density of steel."},
-{c:"Materials",q:"Estimate the melting point of titanium",u:"°C",min:300,max:3500,step:10,ans:1668,n:"Pure titanium melts at 1668 °C, above steel and well above aluminium."},
-{c:"Propulsion",q:"Estimate the sea-level thrust of one Saturn V F-1 engine",u:"kN",min:500,max:20000,step:10,log:1,ans:6770,n:"About 6770 kN each. The first stage carried five."},
-{c:"Cryogenics",q:"Estimate the boiling point of liquid hydrogen at 1 atm",u:"K",min:1,max:150,step:0.1,ans:20.3,n:"About 20.3 K, which is why boil-off is so hard to manage."},
-{c:"Aircraft",q:"Estimate the typical cruise Mach number of a Boeing 787",u:"Mach",min:0.3,max:3,step:0.01,ans:0.85,n:"Mach 0.85, at the fast end for subsonic airliners."},
-{c:"Aircraft",q:"Estimate the cruise Mach number of Concorde",u:"Mach",min:0.5,max:5,step:0.01,ans:2.02,n:"Just over Mach 2, limited mainly by skin heating."},
+{c:"Fluids",q:"Estimate the density of air at sea level in the standard atmosphere",u:"kg/m³",min:0.2,max:5,step:0.005,ans:1.225,n:"1.225 kg/m³ at 15 °C and 101.325 kPa."},
+{c:"Thermodynamics",q:"Estimate the ratio of specific heats, γ, for air at room temperature",u:"",min:1,max:2,step:0.01,ans:1.4,n:"About 1.40, as for any diatomic gas at moderate temperature."},
+{c:"Thermodynamics",q:"Estimate the specific gas constant of dry air",u:"J/kg·K",min:50,max:1000,step:1,ans:287,n:"287 J/kg·K, the universal gas constant divided by the molar mass of air."},
+{c:"Aerodynamics",q:"Estimate the lift-curve slope given by thin aerofoil theory",u:"per radian",min:1,max:15,step:0.01,ans:6.28,n:"2π per radian, which is about 0.11 per degree."},
+{c:"Atmosphere",q:"Estimate the temperature lapse rate in the troposphere of the standard atmosphere",u:"K/km",min:1,max:20,step:0.1,ans:6.5,n:"Temperature falls by 6.5 K per kilometre up to 11 km."},
 {c:"Materials",q:"Estimate the yield strength of 6061-T6 aluminium",u:"MPa",min:50,max:1500,step:5,ans:276,n:"The usual handbook figure is 276 MPa."},
-{c:"Aircraft",q:"Estimate the wingspan of an Airbus A380",u:"m",min:20,max:150,step:0.5,ans:79.8,n:"79.8 m, sized to fit the 80 m airport gate box."},
-{c:"Propulsion",q:"Estimate the vacuum specific impulse of the Space Shuttle main engine",u:"s",min:100,max:1000,step:2,ans:452,n:"About 452 s, burning hydrogen and oxygen in a staged combustion cycle."},
+{c:"Astronautics",q:"Estimate the altitude of a geostationary orbit",u:"km",min:1000,max:100000,step:100,log:true,ans:35786,n:"About 35,786 km above the equator, which gives a period of one sidereal day."},
+{c:"Fluids",q:"Estimate the Reynolds number at which pipe flow usually starts to leave the laminar regime",u:"",min:500,max:100000,step:50,log:true,ans:2300,n:"About 2300. Fully turbulent flow is usually assumed above about 4000."},
 {c:"Heat transfer",q:"Estimate the thermal conductivity of copper",u:"W/m·K",min:10,max:1000,step:5,ans:400,n:"Close to 400 W/m·K at room temperature."},
 {c:"Astronautics",q:"Estimate the orbital speed of a satellite in low Earth orbit",u:"km/s",min:1,max:20,step:0.1,ans:7.8,n:"About 7.8 km/s, one lap every 90 minutes or so."},
 {c:"Astronautics",q:"Estimate the escape velocity from the surface of the Earth",u:"km/s",min:1,max:30,step:0.1,ans:11.2,n:"11.2 km/s, which is the circular orbital speed at the surface multiplied by √2."},
-{c:"Astronautics",q:"Estimate the altitude of the International Space Station",u:"km",min:100,max:2000,step:10,ans:410,n:"It is kept at roughly 400 to 420 km."},
-{c:"Civil",q:"Estimate the main span of the Golden Gate Bridge",u:"m",min:200,max:3000,step:10,ans:1280,n:"1280 m between the towers."},
-{c:"Civil",q:"Estimate the height of the Burj Khalifa",u:"m",min:200,max:1500,step:2,ans:828,n:"828 m to the tip."},
+{c:"Hydraulics",q:"Estimate the unit weight of fresh water",u:"kN/m³",min:1,max:30,step:0.01,ans:9.81,n:"9.81 kN/m³, which is 1000 kg/m³ multiplied by g."},
+{c:"Solid mechanics",q:"Estimate Poisson's ratio for structural steel",u:"",min:0,max:0.5,step:0.01,ans:0.3,n:"About 0.30. Most metals fall between 0.25 and 0.35."},
+{c:"Structures",q:"A simply supported beam spans 8 m and carries a uniform load of 10 kN/m. Estimate the maximum bending moment",u:"kN·m",min:0,max:400,step:1,ans:80,n:"wL²/8 = 10 × 8² / 8 = 80 kN·m, at midspan."},
 {c:"Energy",q:"Estimate the Betz limit, the maximum share of wind power a turbine can extract",u:"%",min:0,max:100,step:0.1,ans:59.3,n:"16/27, or about 59.3 %."},
 {c:"Thermodynamics",q:"A heat engine runs between 900 K and 300 K. Estimate its maximum possible efficiency",u:"%",min:0,max:100,step:0.1,ans:66.7,n:"Carnot efficiency is 1 − 300/900, or 66.7 %."},
 {c:"Mechanics",q:"Estimate the gravitational acceleration on the surface of the Moon",u:"m/s²",min:0.1,max:10,step:0.01,ans:1.62,n:"1.62 m/s², about one sixth of the value on Earth."}
@@ -522,19 +522,33 @@ function pointerScore(q,x,y){var wy=q.wy||1,best=1e9,bt=q.t[0];q.t.forEach(funct
 function shuf(n,rand){var a=[];for(var i=0;i<n;i++)a.push(i);for(i=n-1;i>0;i--){var j=Math.floor(rand()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;}return a;}
 /* Discipline tags: a aerospace, m mechanical, c civil, e electrical, h chemical */
 (function(){
-var W=["mha","a","mac","mca","m","mh","c","m","m","m","a","eh","mhc","c","e","mc","mc","a","hm","hm","amceh","c","a","e","mac","e","ah"];
-var SL=["am","mc","ma","ma","a","ah","a","a","ma","a","a","meh","a","a","a","c","c","me","mh","ma"];
+var W=["mha","a","amceh","mca","m","mh","cma","m","m","m","a","eh","mhc","c","e","mc","mc","a","hm","mha","amceh","c","a","e","mac","e","amhc"];
+var SL=["am","mc","ma","amch","amh","amh","a","a","ma","a","mhca","meh","a","a","c","mca","cm","me","mh","ma"];
 var PT=["mc","mc","mc","a","am","am","cm","cm","cm","a","a","a","hm","hm","a","a","a","ma","ma","cm","cm","mhc"];
 W.forEach(function(g,i){PROMPTS[i].g=g;});SL.forEach(function(g,i){SLIDERS[i].g=g;});PT.forEach(function(g,i){POINTERS[i].g=g;});
 })();
 PROMPTS=PROMPTS.concat([
-{g:"e",c:"Radio frequency",q:"Name a type of antenna",s:"antenna antennas aerial",a:[
-["Dipole","Dish|parabolic|parabolic reflector|satellite dish","Yagi|Yagi-Uda"],
-["Monopole|whip","Patch|microstrip","Loop","Horn"],
-["Helical|helix","Log-periodic|LPDA|log periodic","Phased array|array","Slot","Ground plane","Rubber ducky"],
-["Folded dipole","Vivaldi|tapered slot","Discone","Turnstile|crossed dipole","Cassegrain","Spiral","Bowtie|bow-tie|bow tie","Rhombic","Collinear","Ferrite rod|loopstick","PIFA|inverted F|planar inverted F","Quad|cubical quad"],
-["Biconical","Fractal","Lens|Luneburg lens","Leaky wave","Halo","J-pole|J pole","Quadrifilar helix|QFH","Dielectric resonator","Reflectarray"],
-["Beverage","Batwing|superturnstile","Zepp|Zeppelin","Curtain array|Sterba curtain|curtain"]]},
+{g:"ameh",c:"Control systems",q:"Name a method, tool or criterion used to analyse or design a control system",s:"method plot criterion diagram chart control controller test stability analysis",a:[
+["PID|proportional integral derivative|three-term|PI|PD","Feedback|closed loop|negative feedback","Transfer function"],
+["Bode","Block|block reduction","Laplace transform|Laplace","Step response|time response|transient response","Poles and zeros|pole-zero|pole zero map|poles"],
+["Root locus|Evans","Nyquist","Routh-Hurwitz|Routh|Hurwitz|Routh array","Gain margin|phase margin|gain and phase margins|margins","State space|state variable","Frequency response"],
+["Ziegler-Nichols","Lead-lag compensator|lead compensator|lag compensator|lead-lag|compensator|lead|lag","Pole placement|full state feedback|Ackermann|state feedback","Feedforward|feed-forward","Steady-state error|final value theorem|error constants","Controllability|observability","Z-transform","Nichols","Lyapunov|Lyapunov's","On-off|bang-bang"],
+["LQR|linear quadratic regulator|linear quadratic","Kalman filter|Kalman|LQG|state observer|observer|Luenberger observer|Luenberger","Model predictive|MPC","Signal flow graph|Mason's gain|Mason|Mason's rule","Cascade","Anti-windup","Jury|Jury's","Cohen-Coon","Smith predictor","Gain scheduling","Sensitivity function|sensitivity|complementary sensitivity","Describing function"],
+["Kharitonov|Kharitonov's","Popov","Circle","H-infinity|Hinf|H∞","Sliding mode","Quantitative feedback theory|QFT","Internal model|IMC|internal model principle","Backstepping","Loop shaping","Mu synthesis|structured singular value|mu"]]},
+{g:"amceh",c:"Engineering mathematics",q:"Name an analytical method for solving differential equations",s:"method methods technique",a:[
+["Separation of variables|separable|separating variables|variable separable","Integrating factor","Direct integration|integration"],
+["Laplace transform|Laplace","Characteristic equation|auxiliary equation|constant coefficients|homogeneous solution|complementary function","Undetermined coefficients|particular integral|trial solution|guess"],
+["Variation of parameters|variation of constants","Power series|series solution|Taylor series","Fourier series|Fourier","Substitution|change of variables","Exact|exact equation|exact differential","Eigenvalue|eigenvalues and eigenvectors|matrix|eigenvector|matrix exponential"],
+["Reduction of order","Frobenius","Fourier transform","Bernoulli|Bernoulli equation|Bernoulli substitution","Homogeneous|homogeneous substitution","Characteristics","Green's function|Green","D'Alembert|d'Alembert's","Cauchy-Euler|Euler-Cauchy|equidimensional|Euler"],
+["Similarity solution|similarity|similarity variable|self-similar","Perturbation|perturbation theory|asymptotic expansion","Eigenfunction expansion|Sturm-Liouville","Annihilator","Picard iteration|Picard|successive approximations","Duhamel|Duhamel's principle|Duhamel's integral|convolution","Riccati|Riccati substitution","Clairaut","Phase plane|linearisation|linearization","Operator|D-operator|differential operator|Heaviside operator"],
+["WKB|WKBJ|Liouville-Green","Lie symmetry|Lie group|symmetry","Hodograph|hodograph transformation","Multiple scales|two-timing","Hankel transform|Hankel","Adomian decomposition|Adomian","Matched asymptotic expansions|matched asymptotics","Mellin transform|Mellin","Wronskian|Abel's identity|Abel","Inverse scattering"]]},
+{g:"e",c:"Circuit analysis",q:"Name a law, theorem or technique used to analyse electric circuits",s:"law laws theorem theorems analysis method technique rule transformation transform",a:[
+["Ohm|Ohm's","Kirchhoff's voltage law|KVL|Kirchhoff voltage|Kirchhoff|Kirchhoff's","Kirchhoff's current law|KCL|Kirchhoff current|junction"],
+["Thévenin|Thevenin|Thevenin's|Thevenin equivalent","Norton|Norton's|Norton equivalent","Superposition","Voltage divider|potential divider|voltage division","Nodal|node voltage|nodal voltage|node"],
+["Mesh|mesh current|loop current|loop","Current divider|current division","Maximum power transfer|max power transfer|Jacobi","Source transformation|source conversion","Phasor|phasors|phasor domain","Series and parallel reduction|series parallel|equivalent resistance|series|parallel"],
+["Star-delta|delta-star|wye-delta|delta-wye|Y-delta|Kennelly","Laplace|s-domain","Supernode","Supermesh","Two-port|two port network|two-port parameters|Z parameters|Y parameters|h parameters|ABCD parameters","Millman|Millman's","Small-signal|small signal model","Transfer function","Time constant|RC time constant"],
+["Tellegen|Tellegen's","Reciprocity","Miller|Miller's|Miller effect","Substitution","Modified nodal|MNA","Fourier|Fourier series","Bode plot|Bode","Symmetrical components|Fortescue","Per-unit|per unit system"],
+["Compensation","Rosen|Rosen's|star-mesh","Extra element|Middlebrook|Middlebrook's","Bartlett's bisection|Bartlett|bisection","Foster's reactance|Foster","Blakesley|source shifting|Blakesley's|source shift","Signal-flow graph|Mason's gain|Mason","Driving point impedance|driving-point"]]},
 {g:"eh",c:"Energy storage",q:"Name a battery chemistry",s:"battery batteries cell",a:[
 ["Lithium-ion|Li-ion|lithium ion|lithium","Lead-acid|lead acid","Alkaline"],
 ["Nickel-metal hydride|NiMH|nickel metal hydride","Nickel-cadmium|NiCd|NiCad|nickel cadmium","Lithium polymer|LiPo|Li-po","Zinc-carbon|zinc carbon|carbon zinc"],
@@ -577,13 +591,13 @@ PROMPTS=PROMPTS.concat([
 ["PVDF|polyvinylidene fluoride|Kynar","Polyimide|Kapton|PI","PPS|polyphenylene sulfide|polyphenylene sulphide","PEI|Ultem|polyetherimide","PBT|polybutylene terephthalate","Polysulfone|PSU|polysulphone","EVA|ethylene vinyl acetate","PETG","Nitrile|NBR|nitrile rubber|Buna-N","EPDM","TPU|thermoplastic polyurethane","Viton|FKM|fluoroelastomer","SBR|styrene butadiene","Cellulose acetate","PVA|polyvinyl alcohol","Melamine|melamine formaldehyde","Butyl|butyl rubber","ASA","HIPS"],
 ["PEKK","FEP","PFA","ETFE","Liquid crystal polymer|LCP|Vectran","Zylon|PBO","PPO|polyphenylene oxide|Noryl|PPE","PHA|polyhydroxyalkanoate","Polycaprolactone|PCL","Vespel","PES|polyethersulfone","Polyacrylonitrile|PAN","Nafion"],
 ["PAI|Torlon|polyamide-imide","PCTFE|Kel-F","PBI|polybenzimidazole","Parylene","COC|cyclic olefin copolymer","PPSU|Radel"]]},
-{g:"h",c:"Industrial chemistry",q:"Name an industrial chemical process named after a person",s:"process",a:[
-["Haber|Haber-Bosch|Haber Bosch"],
-["Fischer-Tropsch|Fischer Tropsch","Bessemer","Solvay"],
-["Ostwald","Claus","Bayer","Hall-Héroult|Hall Heroult|Hall","Kroll","Sabatier","Bosch"],
-["Linde","Mond","Wacker","Deacon","Frasch","Czochralski","Siemens","Bergius","Leblanc","Birkeland-Eyde|Birkeland Eyde","Castner-Kellner|Castner","Downs","Dow","Pidgeon","Hunter"],
-["Raschig","Hock","Parkes","Miller","Stöber","Reppe","Ziegler|Ziegler-Natta","Andrussow","Kolbe-Schmitt|Kolbe","Weldon","Acheson","Verneuil","van Arkel-de Boer|van Arkel|crystal bar"],
-["Bosch-Meiser|Bosch Meiser","Girdler|Girdler sulfide","Wohlwill","Betts","Hargreaves","Pattinson"]]},
+{g:"hm",c:"Chemical thermodynamics",q:"Name a law, equation or model used in chemical thermodynamics or physical chemistry",s:"law laws equation equations model rule state principle",a:[
+["Ideal gas|PV=nRT","Boyle|Boyle's","Charles|Charles's|Charles'"],
+["First law of thermodynamics|first|conservation of energy","Second law of thermodynamics|second","Avogadro|Avogadro's","Dalton|Dalton's|partial pressures","Hess|Hess's","Le Chatelier|Le Chatelier's","Arrhenius"],
+["van der Waals|VdW","Raoult|Raoult's","Henry|Henry's","Gay-Lussac|Amontons","Clausius-Clapeyron|Clapeyron","Nernst","Gibbs free energy|Gibbs|Gibbs-Helmholtz","Graham|Graham's|Graham's law of effusion","Fick|Fick's","Third law of thermodynamics|third","Zeroth law of thermodynamics|zeroth","Beer-Lambert|Beer's|Lambert-Beer"],
+["Peng-Robinson|PR","Antoine","Redlich-Kwong|RK","Virial|virial expansion","van 't Hoff|vant Hoff","Gibbs phase rule|phase","Kirchhoff|Kirchhoff's law of thermochemistry","Soave-Redlich-Kwong|SRK|Soave","Gibbs-Duhem","Henderson-Hasselbalch","Langmuir|Langmuir isotherm","Corresponding states","Lever","Michaelis-Menten"],
+["NRTL","UNIQUAC","UNIFAC","Wilson","Margules","van Laar","Lee-Kesler","Benedict-Webb-Rubin|BWR","Trouton|Trouton's","Amagat|Amagat's","Debye-Hückel","Flory-Huggins","Lewis-Randall","BET|Brunauer-Emmett-Teller","Freundlich","Eyring|transition state theory"],
+["Poynting|Poynting correction","Beattie-Bridgeman","Dieterici","Berthelot","Rackett","Duhem-Margules","Pitzer","Wagner","Regular solution|Scatchard-Hildebrand|Hildebrand","Kay's|Kay","Gibbs-Thomson|Kelvin","SAFT|PC-SAFT","Wong-Sandler","Ostwald dilution|Ostwald's"]]},
 {g:"c",c:"Geotechnical",q:"Name a type of foundation used in construction",s:"foundation foundations footing footings",a:[
 ["Pile|piled|piling","Slab|slab on grade|concrete slab","Strip"],
 ["Raft|mat","Pad|spread|isolated|individual","Shallow","Deep","Pier"],
@@ -602,7 +616,27 @@ PROMPTS=PROMPTS.concat([
 SLIDERS=SLIDERS.concat([
 {g:"e",c:"Semiconductors",q:"Estimate the bandgap of silicon at room temperature",u:"eV",min:0.1,max:5,step:0.01,ans:1.12,n:"About 1.12 eV, which sets the roughly 0.7 V forward drop of a silicon diode."},
 {g:"eh",c:"Energy storage",q:"Estimate the nominal voltage of a lithium-ion cell",u:"V",min:0.5,max:12,step:0.1,ans:3.7,n:"About 3.6 to 3.7 V for the common cobalt-based chemistries."},
-{g:"e",c:"Electronics",q:"Estimate the frequency of a standard watch crystal",u:"kHz",min:1,max:500,step:0.1,log:1,ans:32.8,n:"32.768 kHz, which is 2 to the power of 15 Hz and divides down neatly to one pulse per second."},
+{g:"mc",c:"Materials",q:"Estimate the coefficient of linear thermal expansion of steel",u:"×10⁻⁶ /K",min:1,max:50,step:0.5,ans:12,n:"About 12 × 10⁻⁶ per kelvin."},
+{g:"mc",c:"Materials",q:"Estimate the density of steel",u:"kg/m³",min:1000,max:20000,step:50,ans:7850,n:"About 7850 kg/m³."},
+{g:"cmh",c:"Fluids",q:"Estimate the gauge pressure 10 m below the surface of fresh water",u:"kPa",min:10,max:500,step:0.1,ans:98.1,n:"ρgh = 1000 × 9.81 × 10 = 98.1 kPa, close to one atmosphere."},
+{g:"mh",c:"Thermodynamics",q:"Estimate the specific heat capacity of liquid water",u:"kJ/kg·K",min:0.5,max:10,step:0.01,ans:4.18,n:"About 4.18 kJ/kg·K near room temperature."},
+{g:"hm",c:"Thermodynamics",q:"Estimate the universal gas constant",u:"J/mol·K",min:1,max:20,step:0.01,ans:8.31,n:"8.314 J/mol·K."},
+{g:"amhc",c:"Fluids",q:"Estimate standard atmospheric pressure at sea level",u:"kPa",min:10,max:500,step:0.1,ans:101.3,n:"101.325 kPa, or 1 atm."},
+{g:"mhc",c:"Fluids",q:"Estimate the dynamic viscosity of water at 20 °C",u:"mPa·s",min:0.1,max:10,step:0.01,log:true,ans:1,n:"Almost exactly 1.0 mPa·s, or 0.001 Pa·s."},
+{g:"mh",c:"Heat transfer",q:"Estimate the Stefan-Boltzmann constant",u:"×10⁻⁸ W/m²·K⁴",min:1,max:10,step:0.01,ans:5.67,n:"5.67 × 10⁻⁸ W/m²·K⁴."},
+{g:"mha",c:"Heat transfer",q:"Estimate the Prandtl number of air at room temperature",u:"",min:0.1,max:10,step:0.01,log:true,ans:0.71,n:"About 0.71, and nearly constant over a wide range of temperature."},
+{g:"h",c:"Chemistry",q:"Estimate the molar volume of an ideal gas at 0 °C and 1 atm",u:"L/mol",min:5,max:100,step:0.1,ans:22.4,n:"22.4 L/mol."},
+{g:"ha",c:"Chemistry",q:"Estimate the molar mass of dry air",u:"g/mol",min:10,max:60,step:0.1,ans:29,n:"About 28.97 g/mol."},
+{g:"he",c:"Electrochemistry",q:"Estimate the Faraday constant",u:"C/mol",min:10000,max:500000,step:100,log:true,ans:96485,n:"96,485 C/mol, the charge on one mole of electrons."},
+{g:"e",c:"Circuits",q:"A 10 Ω resistor and a 15 Ω resistor are connected in parallel. Estimate the combined resistance",u:"Ω",min:1,max:30,step:0.1,ans:6,n:"(10 × 15) / (10 + 15) = 6 Ω."},
+{g:"e",c:"Circuits",q:"An RC low-pass filter has R = 1 kΩ and C = 1 µF. Estimate its cutoff frequency",u:"Hz",min:10,max:5000,step:1,log:true,ans:159,n:"1 / (2πRC) = 159 Hz."},
+{g:"e",c:"Electronics",q:"Estimate the forward voltage drop of a conducting silicon diode",u:"V",min:0.1,max:5,step:0.01,ans:0.7,n:"About 0.7 V at typical currents."},
+{g:"e",c:"Semiconductors",q:"Estimate the thermal voltage kT/q at room temperature",u:"mV",min:1,max:200,step:0.1,log:true,ans:25.9,n:"About 25.9 mV at 300 K."},
+{g:"e",c:"AC circuits",q:"A mains supply is 230 V RMS. Estimate its peak voltage",u:"V",min:100,max:1000,step:1,ans:325,n:"230 × √2 = 325 V."},
+{g:"e",c:"Electromagnetics",q:"Estimate the permittivity of free space",u:"pF/m",min:1,max:50,step:0.01,ans:8.85,n:"8.854 pF/m, or 8.854 × 10⁻¹² F/m."},
+{g:"mc",c:"Metallurgy",q:"Estimate the eutectoid temperature of the iron-carbon system",u:"°C",min:200,max:1600,step:1,ans:727,n:"727 °C, where austenite transforms to pearlite on cooling."},
+{g:"mc",c:"Metallurgy",q:"Estimate the carbon content of eutectoid steel",u:"wt %",min:0.05,max:4,step:0.01,ans:0.76,n:"About 0.76 wt % carbon."},
+{g:"am",c:"Dynamics",q:"A 1 kg mass hangs on a spring of stiffness 400 N/m. Estimate its natural frequency",u:"Hz",min:0.1,max:50,step:0.01,log:true,ans:3.18,n:"√(k/m) = 20 rad/s, which is 3.18 Hz."},
 {g:"e",c:"High voltage",q:"Estimate the dielectric strength of dry air at sea level",u:"kV/mm",min:0.1,max:20,step:0.1,ans:3,n:"About 3 kV/mm, or 3 MV/m."},
 {g:"e",c:"Materials",q:"Estimate the electrical conductivity of annealed copper",u:"MS/m",min:1,max:200,step:0.5,ans:58,n:"58 MS/m is the International Annealed Copper Standard."},
 {g:"h",c:"Physical properties",q:"Estimate the boiling point of ethanol at 1 atm",u:"°C",min:0,max:300,step:0.5,ans:78.4,n:"78.4 °C, low enough to distil away from water up to the azeotrope."},
@@ -610,11 +644,7 @@ SLIDERS=SLIDERS.concat([
 {g:"hm",c:"Thermodynamics",q:"Estimate the critical temperature of water",u:"°C",min:100,max:1000,step:2,ans:374,n:"374 °C at 22.1 MPa."},
 {g:"ha",c:"Fuels",q:"Estimate the higher heating value of hydrogen",u:"MJ/kg",min:10,max:300,step:1,ans:142,n:"About 142 MJ/kg, roughly three times that of kerosene by mass."},
 {g:"h",c:"Physical properties",q:"Estimate the density of ethanol at 20 °C",u:"kg/m³",min:300,max:2000,step:5,ans:789,n:"789 kg/m³."},
-{g:"c",c:"Materials",q:"Estimate the density of normal-weight concrete",u:"kg/m³",min:500,max:8000,step:50,ans:2400,n:"About 2400 kg/m³ unreinforced."},
-{g:"c",c:"Dams",q:"Estimate the height of the Hoover Dam",u:"m",min:50,max:600,step:1,ans:221,n:"221 m from foundation rock to crest."},
-{g:"c",c:"Tunnels",q:"Estimate the length of the Channel Tunnel",u:"km",min:5,max:200,step:0.5,ans:50.5,n:"About 50.5 km, of which roughly 38 km is under the sea."},
-{g:"c",c:"Bridges",q:"Estimate the arch span of the Sydney Harbour Bridge",u:"m",min:100,max:2000,step:1,ans:503,n:"503 m between the bearings."},
-{g:"c",c:"Bridges",q:"Estimate the main span of the Akashi Kaikyō Bridge",u:"m",min:500,max:4000,step:5,ans:1991,n:"1991 m. It was the longest suspension span in the world for more than two decades."}
+{g:"c",c:"Materials",q:"Estimate the density of normal-weight concrete",u:"kg/m³",min:500,max:8000,step:50,ans:2400,n:"About 2400 kg/m³ unreinforced."}
 ]);
 DIAGRAMS.diode=function(){return '<path class="ax" d="M40,180 H570 M300,20 V325"/><text x="560" y="170" text-anchor="end">Voltage</text><text x="310" y="34">Current</text><path class="l" d="M110,325 L112,205 Q113,184 140,183 L330,180 Q372,178 384,120 L396,25"/>';};
 DIAGRAMS.rc=function(){var p=[];for(var t=0;t<=5.001;t+=0.1)p.push((60+100*t).toFixed(1)+","+(300-240*(1-Math.exp(-t))).toFixed(1));return axes("Time","Capacitor voltage")+'<path class="dash" d="M60,60 H570"/><text x="560" y="50" text-anchor="end">Supply voltage</text><path class="l" d="M'+p.join(" L")+'"/>';};
